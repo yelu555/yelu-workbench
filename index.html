@@ -216,6 +216,12 @@
   .conv-my{font-size:18px;font-weight:700;color:var(--teal-num);line-height:1.4;}
   .conv-py{font-size:13px;color:var(--text-light);margin-top:4px;font-style:italic;letter-spacing:.3px;}
   .conv-cn{font-size:13.5px;color:var(--text);margin-top:3px;}
+
+  /* ====== 新闻分类标签 ====== */
+  .news-tag{display:inline-block;font-size:10px;font-weight:700;padding:2px 7px;border-radius:8px;margin-right:6px;vertical-align:middle;}
+  .tag-财经{background:var(--green-light);color:var(--green-num);}
+  .tag-政策{background:var(--blue-light);color:var(--blue-num);}
+  .tag-时事{background:var(--coral-light);color:var(--coral-num);}
   .vocab-my{font-size:19px;font-weight:700;color:var(--orange-num);min-width:60px;}
   .vocab-py{font-size:11px;color:var(--text-light);}
   .vocab-cn{font-size:13.5px;flex:1;}
@@ -544,18 +550,17 @@
     </div>
 
     <div class="module-content" id="tab-news">
-      <div class="page-header"><h2>新闻</h2><div class="sub">每日自动更新 · 来自今日头条热搜</div></div>
+      <div class="page-header"><h2>新闻</h2><div class="sub">每日自动更新 · 只聚焦时事 / 财经 / 重大政策</div></div>
       <div class="card">
-        <div class="todo-header"><span class="icon" style="background:var(--yellow)">📰</span>今日十大新闻 <span style="font-size:11px;color:var(--text-light);margin-left:8px;" id="newsTime"></span></div>
+        <div class="todo-header"><span class="icon" style="background:var(--yellow)">📰</span>今日要闻 · 时事/财经/政策 <span style="font-size:11px;color:var(--text-light);margin-left:8px;" id="newsTime"></span></div>
         <div id="newsLoading" style="text-align:center;padding:20px;color:var(--text-light);">⏳ 正在加载新闻…</div>
         <table id="newsTable" style="display:none;">
-          <thead><tr><th style="width:8%;">#</th><th>标题</th><th style="width:14%;">热度</th></tr></thead>
+          <thead><tr><th style="width:8%;">#</th><th>标题（点击查看详情 ↗）</th><th style="width:14%;">热度</th></tr></thead>
           <tbody id="newsBody"></tbody>
         </table>
       </div>
       <div class="bottom-btns">
-        <button class="btn" onclick="refreshNews()">刷新新闻</button>
-        <button class="btn btn-primary" onclick="openNewsLink()">查看详情</button>
+        <button class="btn btn-primary" onclick="refreshNews()">🔄 刷新新闻</button>
       </div>
     </div>
     <div class="module-content" id="tab-money">
@@ -879,29 +884,52 @@ function resetAccounting(){
 
 // ===== 新闻 =====
 let newsData=[];
-let newsIndex=0;
 function formatHeat(score){
   const n=parseInt(score);
   if(n>=10000)return (n/10000).toFixed(0)+'万';
   return n+'';
 }
+/* 将新闻分类为 财经 / 政策 / 时事，仅保留这三类 */
+function classifyNews(t){
+  const fin=['经济','财经','股市','股票','基金','房价','楼市','房地产','房贷','GDP','通胀','物价','央行','人民币','汇率','利率','降息','加息','降准','贸易','关税','出口','进口','就业','失业','工资','薪资','税收','个税','金融','银行','保险','投资','债券','期货','市值','上市','营收','财报','消费','油价','金价','货币','财政','补贴','理财','存款','贷款','市场','企业','利润','购车','买房','全款','商户'];
+  const pol=['政策','国务院','中央','政府','主席','总理','人大','立法','法规','改革','发布','通知','条例','部署','规划','公报','外交部','联合国','宣布','决定','法案','新规','意见','方案','办法','措施','整治','治理','环保','环境','生态','教育','医疗','医保','养老','社保','落户','生育','监管','处罚','罚款','整治'];
+  const cur=['地震','强震','灾害','台风','洪水','暴雨','疫情','战争','冲突','爆炸','事故','遇难','死亡','伤亡','救援','国际','外交','制裁','谈判','峰会','选举','阅兵','发射','卫星','航天','科技','突破','声明','紧急','突发','重大','事件','山崩','坍塌','火灾','疫苗','确诊','导弹','军事','国防','空难','海啸','核','灾情'];
+  for(const k of fin) if(t.includes(k)) return '财经';
+  for(const k of pol) if(t.includes(k)) return '政策';
+  for(const k of cur) if(t.includes(k)) return '时事';
+  return '';
+}
+function filterNews(data){
+  return data.filter(n=>classifyNews(n.title)!=='');
+}
+function openNews(i){
+  const n=newsData[i];
+  if(n&&n.url) window.open(n.url,'_blank');
+}
 function renderNews(data){
-  newsData=data.slice(0,10);
+  const filtered=filterNews(data);
+  newsData=filtered.slice(0,10);
   const tbody=document.getElementById('newsBody');
-  tbody.innerHTML=newsData.map((n,i)=>'<tr style="cursor:pointer;" onclick="newsIndex='+i+';highlightNews();" id="newsRow'+i+'"><td>'+(i+1)+'</td><td>'+n.title+'</td><td style="font-size:12px;color:var(--text-light);">🔥 '+formatHeat(n.content.replace('热度: ',''))+'</td></tr>').join('');
+  if(newsData.length===0){
+    tbody.innerHTML='<tr><td colspan="3" style="text-align:center;color:var(--text-light);padding:18px;">今日暂无匹配的时事/财经/政策新闻，点「刷新新闻」重试 🔄</td></tr>';
+    document.getElementById('newsLoading').style.display='none';
+    document.getElementById('newsTable').style.display='';
+    document.getElementById('newsTime').textContent='更新于 '+new Date().toLocaleTimeString();
+    saveNewsCache([]);
+    return;
+  }
+  tbody.innerHTML=newsData.map((n,i)=>{
+    const cat=classifyNews(n.title);
+    return '<tr style="cursor:pointer;" onclick="openNews('+i+')" id="newsRow'+i+'">'
+      +'<td>'+(i+1)+'</td>'
+      +'<td><span class="news-tag tag-'+cat+'">'+cat+'</span>'+n.title+' <span style="color:var(--text-light);font-size:12px;">↗</span></td>'
+      +'<td style="font-size:12px;color:var(--text-light);white-space:nowrap;">🔥 '+formatHeat(n.content.replace('热度: ',''))+'</td>'
+      +'</tr>';
+  }).join('');
   document.getElementById('newsLoading').style.display='none';
   document.getElementById('newsTable').style.display='';
-  document.getElementById('newsTime').textContent='更新于 '+new Date().toLocaleTimeString();
-  saveNewsCache(data.slice(0,10));
-}
-function highlightNews(){
-  document.querySelectorAll('#newsBody tr').forEach(r=>r.style.background='');
-  const row=document.getElementById('newsRow'+newsIndex);
-  if(row)row.style.background='var(--yellow-light)';
-}
-function openNewsLink(){
-  if(newsData.length===0)return alert('暂无新闻数据');
-  window.open(newsData[newsIndex].url,'_blank');
+  document.getElementById('newsTime').textContent='更新于 '+new Date().toLocaleTimeString()+' · 共'+newsData.length+'条';
+  saveNewsCache(newsData);
 }
 function refreshNews(){
   document.getElementById('newsLoading').style.display='';
