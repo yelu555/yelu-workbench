@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>野鹿工作台</title>
+<style>
+  :root{
+    --bg:#f5f0eb;--card:#fff;--text:#2d2d2d;--text-light:#888;--border:#e8e3de;
+    --orange:#d4a574;--orange-light:#f5e6d3;--green:#7cb342;--green-light:#e8f5e9;
+    --pink:#e8a0bf;--pink-light:#fce4ec;--blue:#7bb3d9;--blue-light:#e3f2fd;
+    --purple:#b39ddb;--purple-light:#ede7f6;--yellow:#f0c36d;--yellow-light:#fff8e1;
+    --teal:#80cbc4;--teal-light:#e0f2f1;--coral:#ffab91;--coral-light:#fbe9e7;
+    --nav-active:#fff8f0;--nav-hover:#faf5f0;--red:#e57373;--red-light:#ffebee;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
+    background:var(--bg);color:var(--text);line-height:1.5;
+    min-height:100vh;display:flex;flex-direction:column;
+  }
+  .header{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 20px;background:var(--bg);
+  }
+  .header .back{font-size:22px;color:var(--text);cursor:pointer;width:36px;}
+  .header .title{font-size:18px;font-weight:600;}
+  .header .badge{
+    display:flex;align-items:center;gap:6px;
+    background:var(--card);padding:6px 14px;border-radius:20px;
+    font-size:13px;color:var(--orange);box-shadow:0 2px 6px rgba(0,0,0,.06);
+  }
+  .badge-icon{width:18px;height:18px;border-radius:50%;background:var(--orange);display:flex;align-items:center;justify-content:center;font-size:11px;color:#fff;}
+  .main{display:flex;flex:1;overflow:hidden;}
+  .sidebar{
+    width:90px;background:var(--bg);flex-shrink:0;
+    display:flex;flex-direction:column;align-items:center;
+    padding:10px 0;overflow-y:auto;
+  }
+  .nav-item{
+    display:flex;flex-direction:column;align-items:center;gap:4px;
+    padding:10px 6px;width:72px;border-radius:14px;cursor:pointer;
+    margin-bottom:6px;transition:all .2s;
+  }
+  .nav-item:hover{background:var(--nav-hover);}
+  .nav-item.active{background:var(--nav-active);box-shadow:0 2px 8px rgba(212,165,116,.15);}
+  .nav-icon{
+    width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;
+    background:var(--card);box-shadow:0 1px 4px rgba(0,0,0,.06);
+  }
+  .nav-item.active .nav-icon{box-shadow:0 2px 8px rgba(212,165,116,.2);}
+  .nav-label{font-size:11px;color:var(--text-light);text-align:center;}
+  .nav-item.active .nav-label{color:var(--orange);font-weight:600;}
+  .content{flex:1;padding:0 16px 20px;overflow-y:auto;}
+  .page-header{margin-bottom:16px;}
+  .page-header h2{font-size:22px;font-weight:700;margin-bottom:4px;}
+  .page-header .sub{font-size:13px;color:var(--text-light);}
+  .card{
+    background:var(--card);border-radius:16px;padding:20px;
+    box-shadow:0 2px 12px rgba(0,0,0,.04);margin-bottom:14px;
+  }
+  .ring-wrap{display:flex;flex-direction:column;align-items:center;padding:10px 0 6px;}
+  .ring-svg{width:160px;height:160px;}
+  .ring-bg{fill:none;stroke:var(--orange-light);stroke-width:10;}
+  .ring-bar{fill:none;stroke:var(--orange);stroke-width:10;stroke-linecap:round;transition:stroke-dashoffset .6s ease;transform:rotate(-90deg);transform-origin:50% 50%;}
+  .ring-text{text-anchor:middle;dominant-baseline:middle;}
+  .ring-pct{font-size:36px;font-weight:700;fill:var(--text);}
+  .ring-label{font-size:12px;fill:var(--text-light);}
+  .ring-sub{font-size:13px;color:var(--text-light);margin-top:8px;text-align:center;}
+  .ring-sub b{color:var(--orange);}
+  .todo-header{display:flex;align-items:center;gap:8px;margin-bottom:14px;font-size:15px;font-weight:600;}
+  .todo-header .icon{width:24px;height:24px;border-radius:6px;background:var(--green);display:flex;align-items:center;justify-content:center;font-size:14px;color:#fff;}
+  .todo-list{display:flex;flex-direction:column;gap:0;}
+  .todo-item{
+    display:flex;align-items:center;gap:12px;padding:12px 0;
+    border-bottom:1px solid var(--border);cursor:pointer;transition:all .15s;
+  }
+  .todo-item:last-child{border-bottom:none;}
+  .todo-item:hover{background:rgba(0,0,0,.01);}
+  .todo-check{
+    width:22px;height:22px;border-radius:50%;border:2px solid #ddd;
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;
+    font-size:12px;color:transparent;transition:all .2s;
+  }
+  .todo-item.done .todo-check{border-color:var(--orange);background:var(--orange);color:#fff;}
+  .todo-text{flex:1;font-size:14px;transition:all .2s;}
+  .todo-item.done .todo-text{color:var(--text-light);text-decoration:line-through;}
+  .todo-del{
+    width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    color:#ccc;font-size:16px;cursor:pointer;transition:all .2s;
+  }
+  .todo-del:hover{color:var(--red);background:var(--red-light);}
+  .add-row{display:flex;gap:10px;margin-top:8px;}
+  .add-input{
+    flex:1;padding:12px 16px;border:1.5px solid var(--border);border-radius:12px;
+    font-size:14px;outline:none;background:var(--bg);color:var(--text);
+  }
+  .add-input:focus{border-color:var(--orange);}
+  .add-btn{
+    padding:12px 24px;background:#333;color:#fff;border:none;border-radius:12px;
+    font-size:14px;cursor:pointer;transition:background .2s;
+  }
+  .add-btn:hover{background:#222;}
+  .bottom-btns{display:flex;gap:10px;margin-top:6px;}
+  .btn{
+    flex:1;padding:14px;border-radius:14px;font-size:14px;cursor:pointer;
+    border:1.5px solid var(--border);background:var(--card);color:var(--text);
+    transition:all .2s;text-align:center;
+  }
+  .btn:hover{border-color:var(--orange);}
+  .btn-primary{background:#333;color:#fff;border-color:#333;}
+  .btn-primary:hover{background:#222;}
+  .module-content{display:none;}
+  .module-content.active{display:block;animation:fadeIn .3s;}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+  .alpha-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(58px,1fr));gap:8px;margin-top:10px;}
+  .alpha-card{
+    background:var(--card);border:1.5px solid var(--border);border-radius:10px;
+    padding:10px 4px;text-align:center;cursor:pointer;transition:all .15s;
+  }
+  .alpha-card:hover{border-color:var(--orange);transform:translateY(-2px);box-shadow:0 4px 10px rgba(0,0,0,.08);}
+  .alpha-card .my{font-size:22px;font-weight:700;color:var(--orange);line-height:1.2;}
+  .alpha-card .py{font-size:10px;color:var(--text-light);margin-top:2px;}
+  .vocab-row{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);}
+  .vocab-row:last-child{border-bottom:none;}
+  .vocab-my{font-size:18px;font-weight:600;color:var(--orange);min-width:60px;}
+  .vocab-py{font-size:11px;color:var(--text-light);}
+  .vocab-cn{font-size:13px;flex:1;}
+  .check-row{
+    display:flex;align-items:center;gap:10px;padding:10px 14px;
+    border-radius:10px;margin-bottom:6px;cursor:pointer;
+    border:1.5px solid var(--border);background:var(--card);
+    transition:all .15s;
+  }
+  .check-row:hover{border-color:var(--orange);}
+  .check-row.done{border-color:var(--green);background:var(--green-light);}
+  .check-row .dot{width:18px;height:18px;border-radius:50%;border:2px solid #ccc;flex-shrink:0;transition:all .2s;}
+  .check-row.done .dot{border-color:var(--green);background:var(--green);}
+  .check-row .txt{flex:1;font-size:13px;}
+  .check-row.done .txt{color:var(--green);text-decoration:line-through;}
+  table{width:100%;border-collapse:collapse;font-size:13px;margin-top:8px;}
+  th{background:rgba(0,0,0,.04);padding:8px;text-align:left;border-radius:6px;}
+  td{padding:8px 0;border-bottom:1px solid var(--border);}
+  tr:last-child td{border-bottom:none;}
+  @media(max-width:768px){
+    .sidebar{width:70px;}
+    .nav-item{width:58px;padding:8px 4px;}
+    .nav-icon{width:34px;height:34px;font-size:17px;}
+    .nav-label{font-size:10px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="back">&lt;</div>
+  <div class="title">野鹿工作台</div>
+  <div class="badge"><span class="badge-icon">🏅</span><span>1</span></div>
+</div>
+
+<div class="main">
+
+  <div class="sidebar">
+    <div class="nav-item active" onclick="switchTab('daily',this)">
+      <div class="nav-icon" style="background:var(--orange-light);">📋</div>
+      <div class="nav-label">每日任务</div>
+    </div>
+    <div class="nav-item" onclick="switchTab('english',this)">
+      <div class="nav-icon" style="background:var(--blue-light);">📖</div>
+      <div class="nav-label">英语学习</div>
+    </div>
+    <div class="nav-item" onclick="switchTab('myanmar',this)">
+      <div class="nav-icon" style="background:var(--teal-light);">🇲🇲</div>
+      <div class="nav-label">缅甸语学习</div>
+    </div>
+    <div class="nav-item" onclick="switchTab('accounting',this)">
+      <div class="nav-icon" style="background:var(--purple-light);">📊</div>
+      <div class="nav-label">初级会计</div>
+    </div>
+    <div class="nav-item" onclick="switchTab('news',this)">
+      <div class="nav-icon" style="background:var(--yellow-light);">📰</div>
+      <div class="nav-label">新闻</div>
+    </div>
+    <div class="nav-item" onclick="switchTab('money',this)">
+      <div class="nav-icon" style="background:var(--green-light);">💰</div>
+      <div class="nav-label">理财知识</div>
+    </div>
+    <div class="nav-item" onclick="switchTab('food',this)">
+      <div class="nav-icon" style="background:var(--coral-light);">🥗</div>
+      <div class="nav-label">哺乳期减脂</div>
+    </div>
+    <div class="nav-item" onclick="switchTab('idea',this)">
+      <div class="nav-icon" style="background:var(--yellow-light);">💡</div>
+      <div class="nav-label">想法记录</div>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- ===== 每日任务 ===== -->
+    <div class="module-content active" id="tab-daily">
+      <div class="page-header"><h2>每日任务</h2><div class="sub">今日待办 · 明日规划</div></div>
+      <div class="card ring-wrap">
+        <svg class="ring-svg" viewBox="0 0 160 160">
+          <circle class="ring-bg" cx="80" cy="80" r="65"/>
+          <circle class="ring-bar" id="ringBar" cx="80" cy="80" r="65" stroke-dasharray="408.4" stroke-dashoffset="408.4"/>
+          <text class="ring-text ring-pct" x="80" y="72" id="ringPct">0%</text>
+          <text class="ring-text ring-label" x="80" y="92">整体完成进度</text>
+        </svg>
+        <div class="ring-sub">已完成 <b id="doneCount">0</b>/<b id="totalCount">0</b> 项 · 目标 <b>70%</b></div>
+      </div>
+      <div class="card">
+        <div class="todo-header"><span class="icon">✓</span>今日待办清单</div>
+        <div class="todo-list" id="todoList">
+          <div class="todo-item" onclick="toggleTodo(this)"><div class="todo-check">✓</div><div class="todo-text">理财入门基础知识</div><div class="todo-del" onclick="deleteTodo(event,this)">×</div></div>
+          <div class="todo-item done" onclick="toggleTodo(this)"><div class="todo-check">✓</div><div class="todo-text">新闻阅读</div><div class="todo-del" onclick="deleteTodo(event,this)">×</div></div>
+          <div class="todo-item" onclick="toggleTodo(this)"><div class="todo-check">✓</div><div class="todo-text">新闻阅读</div><div class="todo-del" onclick="deleteTodo(event,this)">×</div></div>
+          <div class="todo-item done" onclick="toggleTodo(this)"><div class="todo-check">✓</div><div class="todo-text">缅甸语学习</div><div class="todo-del" onclick="deleteTodo(event,this)">×</div></div>
+        </div>
+        <div class="add-row"><input class="add-input" id="newTask" placeholder="添加新任务…" onkeydown="if(event.key==='Enter')addTask()"><button class="add-btn" onclick="addTask()">添加</button></div>
+      </div>
+      <div class="bottom-btns">
+        <button class="btn" onclick="clearAll()">清空</button>
+        <button class="btn" onclick="archive()">存档</button>
+        <button class="btn btn-primary" onclick="save()">保存</button>
+      </div>
+    </div>
+
+    <!-- ===== 缅甸语学习 ===== -->
+    <div class="module-content" id="tab-myanmar">
+      <div class="page-header"><h2>缅甸语学习</h2><div class="sub">初级会话 · 每日30分钟 · 碎片化执行</div></div>
+      <div class="card ring-wrap">
+        <svg class="ring-svg" viewBox="0 0 160 160">
+          <circle class="ring-bg" cx="80" cy="80" r="65"/>
+          <circle class="ring-bar" id="myRingBar" cx="80" cy="80" r="65" stroke-dasharray="408.4" stroke-dashoffset="408.4" stroke="var(--teal)"/>
+          <text class="ring-text ring-pct" x="80" y="72" id="myRingPct" style="fill:var(--teal)">0%</text>
+          <text class="ring-text ring-label" x="80" y="92">本周学习进度</text>
+        </svg>
+        <div class="ring-sub">已完成 <b id="myDone">0</b>/<b id="myTotal">37</b> 项 · 目标 <b>80%</b></div>
+      </div>
+      <div class="card">
+        <div class="todo-header"><span class="icon" style="background:var(--teal)">က</span>辅音字母（33个 · 点击标记已掌握）</div>
+        <div class="alpha-grid" id="alphaGrid"></div>
+      </div>
+      <div class="card">
+        <div class="todo-header"><span class="icon" style="background:var(--teal)">✓</span>今日学习打卡</div>
+        <div id="myCheckList">
+          <div class="check-row" onclick="toggleMyCheck(this)"><div class="dot"></div><div class="txt">10分钟 · 复习昨日字母（听写+朗读）</div></div>
+          <div class="check-row" onclick="toggleMyCheck(this)"><div class="dot"></div><div class="txt">10分钟 · 学习新字母（3-5个）</div></div>
+          <div class="check-row" onclick="toggleMyCheck(this)"><div class="dot"></div><div class="txt">5分钟 · 日常会话句型跟读</div></div>
+          <div class="check-row" onclick="toggleMyCheck(this)"><div class="dot"></div><div class="txt">5分钟 · 高频词汇记忆（5个新词）</div></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="todo-header"><span class="icon" style="background:var(--teal)">💬</span>日常会话句型</div>
+        <div class="vocab-row"><div class="vocab-my">မင်္ဂလာပါ</div><div class="vocab-py">min ga la ba</div><div class="vocab-cn">你好</div></div>
+        <div class="vocab-row"><div class="vocab-my">ကျေးဇူးတင်ပါတယ်</div><div class="vocab-py">kyaay zuu tin ba de</div><div class="vocab-cn">谢谢</div></div>
+        <div class="vocab-row"><div class="vocab-my">ဟုတ်ကဲ့</div><div class="vocab-py">ho ke</div><div class="vocab-cn">好的 / 是</div></div>
+        <div class="vocab-row"><div class="vocab-my">မဟုတ်ဘူး</div><div class="vocab-py">ma ho bu</div><div class="vocab-cn">不是</div></div>
+        <div class="vocab-row"><div class="vocab-my">နာမည်ဘယ်လိုခေါ်လဲ</div><div class="vocab-py">na meh be lo gau leh</div><div class="vocab-cn">你叫什么名字？</div></div>
+        <div class="vocab-row"><div class="vocab-my">ကျွန်မနာမည်က…</div><div class="vocab-py">kyaun ma na meh ka…</div><div class="vocab-cn">我的名字是…</div></div>
+      </div>
+      <div class="card">
+        <div class="todo-header"><span class="icon" style="background:var(--teal)">📚</span>本周高频词汇</div>
+        <table>
+          <tr><th>缅语</th><th>拼音</th><th>中文</th></tr>
+          <tr><td><b>ကျွန်တော်</b></td><td>kyaun taw</td><td>我（男）</td></tr>
+          <tr><td><b>ကျွန်မ</b></td><td>kyaun ma</td><td>我（女）</td></tr>
+          <tr><td><b>သူ</b></td><td>thu</td><td>他/她</td></tr>
+          <tr><td><b>ရေ</b></td><td>yay</td><td>水</td></tr>
+          <tr><td><b>ထမင်း</b></td><td>hta min</td><td>米饭</td></tr>
+          <tr><td><b>အစား</b></td><td>a sa</td><td>食物</td></tr>
+          <tr><td><b>ဘယ်လို</b></td><td>be lo</td><td>怎么</td></tr>
+          <tr><td><b>ဘယ်မှာ</b></td><td>be hma</td><td>在哪里</td></tr>
+        </table>
+      </div>
+      <div class="card">
+        <div class="todo-header"><span class="icon" style="background:var(--teal)">📅</span>4周学习计划</div>
+        <table>
+          <tr><th>周次</th><th>重点</th><th>目标</th></tr>
+          <tr><td><b>第1周</b></td><td>辅音字母（က-အ）发音与书写</td><td>掌握33个辅音，能正确朗读</td></tr>
+          <tr><td><b>第2周</b></td><td>元音符号与拼读规则</td><td>能拼读简单音节</td></tr>
+          <tr><td><b>第3周</b></td><td>日常问候+自我介绍句型</td><td>能进行简单自我介绍</td></tr>
+          <tr><td><b>第4周</b></td><td>数字+时间+购物场景</td><td>能完成基础购物对话</td></tr>
+        </table>
+      </div>
+      <div class="bottom-btns">
+        <button class="btn" onclick="resetMyanmar()">重置</button>
+        <button class="btn btn-primary" onclick="saveMyanmar()">保存进度</button>
+      </div>
+    </div>
+
+    <!-- ===== 英语学习 ===== -->
+    <div class="module-content" id="tab-english">
+      <div class="page-header"><h2>英语学习</h2><div class="sub">每日碎片化 · 轻松坚持 · 积累为王</div></div>
+      <div class="card ring-wrap">
+        <svg class="ring-svg" viewBox="0 0 160 160">
+          <circle class="ring-bg" cx="80" cy="80" r="65"/>
+          <circle class="ring-bar" id="enRingBar" cx="80" cy="80" r="65" stroke-dasharray="408.4" stroke-dashoffset="408.4" stroke="var(--blue)"/>
+          <text class="ring-text ring-pct" x="80" y="72" id="enRingPct" style="fill:var(--blue)">0%</text>
+          <text class="ring-text ring-label" x="80" y="92">今日学习进度</text>
+        </svg>
+        <div class="ring-sub">已完成 <b id="enDone">0</b>/<b>3</b> 项 · 目标 <b>100%</b></div>
+      </div>
+
+      <div class="card">
+        <div class="todo-header"><span class="icon" style="background:var(--blue)">✓</span>今日打卡</div>
+        <div id="enCheckList">
+          <div class="check-row" onclick="toggleEnCheck(this)"><div class="dot"></div><div class="txt">学习自然拼读 15 分钟</div></div>
+          <div class="check-row" onclick="toggleEnCheck(this)"><div class="dot"></div><div class="txt">记 10 个单词</div></div>
+          <div class="check-row" onclick="toggleEnCheck(this)"><div class="dot"></div><div class="txt">记 5 句英语</div></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="todo-header"><span class="icon" style="background:var(--blue)">📚</span>今日单词（10个）</div>
+        <table>
+          <tr><th style="width:10%;">#</th><th>单词</th><th>词性</th><th>释义</th></tr>
+          <tr><td>1</td><td><b>approach</b></td><td>v./n.</td><td>接近；方法</td></tr>
+          <tr><td>2</td><td><b>establish</b></td><td>v.</td><td>建立；确立</td></tr>
+          <tr><td>3</td><td><b>sufficient</b></td><td>adj.</td><td>足够的</td></tr>
+          <tr><td>4</td><td><b>maintain</b></td><td>v.</td><td>维持；保养</td></tr>
+          <tr><td>5</td><td><b>consequence</b></td><td>n.</td><td>结果；后果</td></tr>
+          <tr><td>6</td><td><b>relevant</b></td><td>adj.</td><td>相关的</td></tr>
+          <tr><td>7</td><td><b>assume</b></td><td>v.</td><td>假设；承担</td></tr>
+          <tr><td>8</td><td><b>decline</b></td><td>v./n.</td><td>下降；拒绝</td></tr>
+          <tr><td>9</td><td><b>obvious</b></td><td>adj.</td><td>明显的</td></tr>
+          <tr><td>10</td><td><b>identify</b></td><td>v.</td><td>识别；确认</td></tr>
+        </table>
+      </div>
+
+      <div class="card">
+        <div class="todo-header"><span class="icon" style="background:var(--blue)">💬</span>今日句型（5句）</div>
+        <div class="vocab-row"><div class="vocab-my" style="color:var(--blue);min-width:auto;font-size:14px;">①</div><div class="vocab-cn">I'm not sure if that's the right approach.</div><div class="vocab-py" style="min-width:auto;">我不确定那是不是正确的方法。</div></div>
+        <div class="vocab-row"><div class="vocab-my" style="color:var(--blue);min-width:auto;font-size:14px;">②</div><div class="vocab-cn">Could you help me figure this out?</div><div class="vocab-py" style="min-width:auto;">你能帮我把这个弄清楚吗？</div></div>
+        <div class="vocab-row"><div class="vocab-my" style="color:var(--blue);min-width:auto;font-size:14px;">③</div><div class="vocab-cn">It makes a huge difference in the long run.</div><div class="vocab-py" style="min-width:auto;">从长远来看这会产生巨大的影响。</div></div>
+        <div class="vocab-row"><div class="vocab-my" style="color:var(--blue);min-width:auto;font-size:14px;">④</div><div class="vocab-cn">That's exactly what I was thinking.</div><div class="vocab-py" style="min-width:auto;">这正是我在想的。</div></div>
+        <div class="vocab-row"><div class="vocab-my" style="color:var(--blue);min-width:auto;font-size:14px;">⑤</div><div class="vocab-cn">I'd like to get your opinion on this.</div><div class="vocab-py" style="min-width:auto;">我想听听你对这件事的看法。</div></div>
+      </div>
+
+      <div class="card">
+        <div class="todo-header"><span class="icon" style="background:var(--blue)">📅</span>每周学习节奏</div>
+        <table>
+          <tr><th>周几</th><th>重点</th><th>时长</th></tr>
+          <tr><td><b>周一三五</b></td><td>自然拼读 + 新词</td><td>15 min</td></tr>
+          <tr><td><b>周二四</b></td><td>句型跟读 + 旧词复习</td><td>15 min</td></tr>
+          <tr><td><b>周六</b></td><td>一周复习（听写+造句）</td><td>20 min</td></tr>
+          <tr><td><b>周日</b></td><td>休息 / 看英文视频</td><td>自由</td></tr>
+        </table>
+      </div>
+
+      <div class="bottom-btns">
+        <button class="btn" onclick="resetEnglish()">重置</button>
+        <button class="btn btn-primary" onclick="saveEnglish()">保存进度</button>
+      </div>
+    </div>
+
+    <!-- ===== 初级会计备考 ===== -->
+    <div class="module-content" id="tab-accounting">
+      <div class="page-header"><h2>初级会计备考</h2><div class="sub">2027年5月考试 · 两科通关</div></div>
+      <div class="card ring-wrap">
+        <svg class="ring-svg" viewBox="0 0 160 160">
+          <circle class="ring-bg" cx="80" cy="80" r="65"/>
+          <circle class="ring-bar" id="accRingBar" cx="80" cy="80" r="65" stroke-dasharray="408.4" stroke-dashoffset="408.4" stroke="var(--purple)"/>
+          <text class="ring-text ring-pct" x="80" y="72" id="accRingPct" style="fill:var(--purple)">0%</text>
+          <text class="ring-text ring-label" x="80" y="92">今日学习进度</text>
+        </svg>
+        <div class="ring-sub">已完成 <b id="accDone">0</b>/<b>4</b> 项</div>
+      </div>
+
+      <div class="card">
+        <div class="todo-header"><span class="icon" style="background:var(--purple)">📝</span>今日学习打卡</div>
+        <div id="accCheckList">
+          <div class="check-row" onclick="toggleAccCheck(this)"><div class="dot"></div><div class="txt">听课 · 看视频课程（30-45分钟）</div></div>
+          <div class="check-row" onclick="toggleAccCheck(this)"><div class="dot"></div><div class="txt">做题 · 章节练习题（10-15道）</div></div>
+          <div class="check-row" onclick="toggleAccCheck(this)"><div class="dot"></div><div class="txt">错题 · 整理错题本（当日错题复盘）</div></div>
+          <div class="check-row" onclick="toggleAccCheck(this)"><div class="dot"></div><div class="txt">记忆 · 背诵分录/公式/概念（10分钟）</div></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="todo-header"><span class="icon" style="background:var(--purple)">📅</span>备考总体规划（2026.7 → 2027.5）</div>
+        <table>
+          <tr><th>阶段</th><th>时间</th><th>重点任务</th><th>每日时长</th></tr>
+          <tr><td><b>基础阶段</b></td><td>7月-11月（4个月）</td><td>《初级会计实务》+《经济法基础》第一轮系统学完</td><td>30-45min</td></tr>
+          <tr><td><b>强化阶段</b></td><td>12月-2月（3个月）</td><td>第二轮复习，重点章节攻克，大量刷题</td><td>45-60min</td></tr>
+          <tr><td><b>冲刺阶段</b></td><td>3月-4月（2个月）</td><td>真题模拟，查漏补缺，背诵高频考点</td><td>60-90min</td></tr>
+          <tr><td><b>考前</b></td><td>5月</td><td>错题回顾，模拟考，调整状态</td><td>灵活</td></tr>
+        </table>
+      </div>
+
+      <div class="card">
+        <div class="todo-header"><span class="icon" style="background:var(--purple)">📖</span>考试信息</div>
+        <table>
+          <tr><th style="width:25%;">科目</th><th style="width:35%;">《初级会计实务》</th><th style="width:40%;">《经济法基础》</th></tr>
+          <tr><td><b>考试时长</b></td><td>105 分钟</td><td>75 分钟</td></tr>
+          <tr><td><b>题型</b></td><td colspan="2">单选 / 多选 / 判断 / 不定项选择</td></tr>
+          <tr><td><b>合格线</b></td><td colspan="2">两科均 ≥ 60 分（必须同时通过）</td></tr>
+          <tr><td><b>核心内容</b></td><td>资产、负债、所有者权益、收入费用利润、财务报表</td><td>会计法律制度、税法（增值税/消费税/企业所得税/个税）、劳动合同与社会保险</td></tr>
+        </table>
+      </div>
+
+      <div class="card">
+        <div class="todo-header"><span class="icon" style="background:var(--purple)">💡</span>备考建议</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+          <div style="background:var(--purple-light);padding:12px;border-radius:10px;font-size:13px;"><b>① 先实务后经济法</b><br>实务偏理解计算，经济法偏记忆。先学实务打底。</div>
+          <div style="background:var(--purple-light);padding:12px;border-radius:10px;font-size:13px;"><b>② 分录是核心</b><br>借贷方向必须熟练，每天背5条分录</div>
+          <div style="background:var(--purple-light);padding:12px;border-radius:10px;font-size:13px;"><b>③ 刷题＞死记</b><br>至少做2000道题，错题反复看</div>
+          <div style="background:var(--purple-light);padding:12px;border-radius:10px;font-size:13px;"><b>④ 碎片化利用</b><br>喂奶/哄睡间隙用手机刷10道题</div>
+        </div>
+      </div>
+
+      <div class="bottom-btns">
+        <button class="btn" onclick="resetAccounting()">重置</button>
+        <button class="btn btn-primary" onclick="saveAccounting()">保存进度</button>
+      </div>
+    </div>
+
+    <div class="module-content" id="tab-news">
+      <div class="page-header"><h2>新闻</h2><div class="sub">每日自动更新 · 来自今日头条热搜</div></div>
+      <div class="card">
+        <div class="todo-header"><span class="icon" style="background:var(--yellow)">📰</span>今日十大新闻 <span style="font-size:11px;color:var(--text-light);margin-left:8px;" id="newsTime"></span></div>
+        <div id="newsLoading" style="text-align:center;padding:20px;color:var(--text-light);">⏳ 正在加载新闻…</div>
+        <table id="newsTable" style="display:none;">
+          <thead><tr><th style="width:8%;">#</th><th>标题</th><th style="width:14%;">热度</th></tr></thead>
+          <tbody id="newsBody"></tbody>
+        </table>
+      </div>
+      <div class="bottom-btns">
+        <button class="btn" onclick="refreshNews()">刷新新闻</button>
+        <button class="btn btn-primary" onclick="openNewsLink()">查看详情</button>
+      </div>
+    </div>
+    <div class="module-content" id="tab-money">
+      <div class="page-header"><h2>理财知识</h2><div class="sub">从零开始 · 每天学一点</div></div>
+      <div class="card ring-wrap">
+        <svg class="ring-svg" viewBox="0 0 160 160">
+          <circle class="ring-bg" cx="80" cy="80" r="65"/>
+          <circle class="ring-bar" id="moneyRingBar" cx="80" cy="80" r="65" stroke-dasharray="408.4" stroke-dashoffset="408.4" stroke="var(--green)"/>
+          <text class="ring-text ring-pct" x="80" y="72" id="moneyRingPct" style="fill:var(--green)">0%</text>
+          <text class="ring-text ring-label" x="80" y="92">今日学习进度</text>
+        </svg>
+        <div class="ring-sub">已完成 <b id="moneyDone">0</b>/<b>3</b> 项</div>
+      </div>
+
+      <div class="card">
+        <div class="todo-header"><span class="icon" style="background:var(--green)">✓</span>今日理财打卡</div>
+        <div id="moneyCheckList">
+          <div class="check-row" onclick="toggleMoneyCheck(this)"><div class="dot"></div><div class="txt">阅读理财知识（15分钟）</div></div>
+          <div class="check-row" onclick="toggleMoneyCheck(this)"><div class="dot"></div><div class="txt">记录今日收支</div></div>
+          <div class="check-row" onclick="toggleMoneyCheck(this)"><div class="dot"></div><div class="txt">复盘一个理财概念</div></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="todo-header"><span class="icon" style="background:var(--green)">📚</span>本周学习主题：基金入门</div>
+        <table>
+          <tr><th style="width:8%;">天</th><th>主题</th><th>要点</th></tr>
+          <tr><td>周一</td><td>什么是基金</td><td>基金就是把钱交给专业经理帮你投资，分散风险</td></tr>
+          <tr><td>周二</td><td>基金分类</td><td>货币基金（余额宝）、债券基金、股票基金、混合基金</td></tr>
+          <tr><td>周三</td><td>定投策略</td><td>固定时间投固定金额，平摊成本，适合新手</td></tr>
+          <tr><td>周四</td><td>基金费用</td><td>申购费、赎回费、管理费——持有越久费用越低</td></tr>
+          <tr><td>周五</td><td>看净值</td><td>单位净值=基金价格，累计净值含分红</td></tr>
+          <tr><td>周六</td><td>风险匹配</td><td>风险承受力低→债基/货基；能承受波动→股基/混合</td></tr>
+          <tr><td>周日</td><td>一周复盘</td><td>回顾本周学习，整理笔记</td></tr>
+        </table>
+      </div>
+
+      <div class="card">
+        <div class="todo-header"><span class="icon" style="background:var(--green)">💡</span>理财核心原则</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px;">
+          <div style="background:var(--green-light);padding:12px;border-radius:10px;font-size:13px;"><b>① 先存后花</b><br>发薪日先存20%，剩下的才是生活费</div>
+          <div style="background:var(--green-light);padding:12px;border-radius:10px;font-size:13px;"><b>② 应急金</b><br>留3-6个月生活费，放货基随时可取</div>
+          <div style="background:var(--green-light);padding:12px;border-radius:10px;font-size:13px;"><b>③ 不跟风</b><br>别人推荐的不一定是好产品，自己研究</div>
+          <div style="background:var(--green-light);padding:12px;border-radius:10px;font-size:13px;"><b>④ 长期主义</b><br>理财不是暴富，是让钱慢慢增长</div>
+        </div>
+      </div>
+
+      <div class="bottom-btns">
+        <button class="btn" onclick="resetMoney()">重置</button>
+        <button class="btn btn-primary" onclick="saveMoney()">保存进度</button>
+      </div>
+    </div>
+    <div class="module-content" id="tab-food">
+      <div class="page-header"><h2>哺乳期减脂</h2><div class="sub">奶量优先 · 温和掉秤 · 每周 -0.3~0.5kg</div></div>
+      <div class="card ring-wrap">
+        <svg class="ring-svg" viewBox="0 0 160 160">
+          <circle class="ring-bg" cx="80" cy="80" r="65"/>
+          <circle class="ring-bar" id="fitRingBar" cx="80" cy="80" r="65" stroke-dasharray="408.4" stroke-dashoffset="408.4" stroke="var(--pink)"/>
+          <text class="ring-text ring-pct" x="80" y="72" id="fitRingPct" style="fill:var(--pink)">0%</text>
+          <text class="ring-text ring-label" x="80" y="92">今日完成进度</text>
+        </svg>
+        <div class="ring-sub">已完成 <b id="fitDone">0</b>/<b>5</b> 项</div>
+      </div>
+
+      <div class="card">
+        <div class="todo-header"><span class="icon" style="background:var(--pink)">✓</span>每日打卡</div>
+        <div id="fitCheckList">
+          <div class="check-row" onclick="toggleFitCheck(this)"><div class="dot"></div><div class="txt">减脂节奏 · 不追求快速掉秤，优先保证奶量充足（目标每周 -0.3~0.5kg）</div></div>
+          <div class="check-row" onclick="toggleFitCheck(this)"><div class="dot"></div><div class="txt">饮食 · 三餐+2加餐，高蛋白为主，热量≥1800kcal（不极低碳水/不断碳/不吃减肥药/不代餐断食）</div></div>
+          <div class="check-row" onclick="toggleFitCheck(this)"><div class="dot"></div><div class="txt">运动 · 盆底/腹直肌修复+拉伸快走为主（不跑跳、不卷腹，碎片化10-15分钟）</div></div>
+          <div class="check-row" onclick="toggleFitCheck(this)"><div class="dot"></div><div class="txt">作息 · 跟随宝宝同步午睡，夜奶后即睡，手机不入卧室</div></div>
+          <div class="check-row" onclick="toggleFitCheck(this)"><div class="dot"></div><div class="txt">食材 · 未吃回奶食物（韭菜/麦芽/花椒/山楂/苦瓜），多吃下奶食物</div></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="todo-header"><span class="icon" style="background:var(--pink)">📖</span>附加参考</div>
+        <p style="font-size:13px;color:var(--text-light);margin-bottom:10px;">点击展开查看</p>
+        <details style="margin-bottom:10px;">
+          <summary style="cursor:pointer;font-size:14px;font-weight:600;padding:6px 0;">一周7天参考食谱</summary>
+          <table style="margin-top:8px;"><tr><th>日</th><th>早餐</th><th>加餐</th><th>午餐</th><th>加餐</th><th>晚餐</th></tr>
+          <tr><td>周一</td><td>燕麦粥+蛋+牛奶</td><td>苹果+核桃</td><td>糙米饭+鸡胸+西兰花+鲫鱼汤</td><td>豆浆+面包</td><td>红薯+虾仁蒸蛋</td></tr>
+          <tr><td>周二</td><td>全麦面包+煎蛋+豆浆</td><td>猕猴桃+杏仁</td><td>小米饭+瘦牛肉+海带豆腐汤</td><td>酸奶+蓝莓</td><td>玉米+清蒸鱼</td></tr>
+          <tr><td>周三</td><td>紫薯+蛋+牛奶</td><td>火龙果+腰果</td><td>藜麦饭+鸡腿去皮+冬瓜汤</td><td>牛奶+饼干</td><td>杂粮粥+豆腐煲</td></tr>
+          <tr><td>周四</td><td>玉米+蛋+豆浆</td><td>橙子+核桃</td><td>糙米饭+三文鱼+菌菇汤</td><td>酸奶+苹果</td><td>红薯+鸡丝凉菜</td></tr>
+          <tr><td>周五</td><td>小米粥+蒸蛋+牛奶</td><td>木瓜+杏仁</td><td>燕麦饭+瘦肉+木耳</td><td>豆浆+面包</td><td>玉米+虾</td></tr>
+          <tr><td>周六</td><td>全麦三明治+牛奶</td><td>蓝莓+松子</td><td>糙米饭+鸡胸+西葫芦</td><td>酸奶+火龙果</td><td>红薯+蒸蛋</td></tr>
+          <tr><td>周日</td><td>燕麦+蛋+豆浆</td><td>苹果+腰果</td><td>小米饭+牛肉+山药</td><td>牛奶+饼干</td><td>玉米+清蒸鱼</td></tr></table>
+        </details>
+        <details style="margin-bottom:10px;">
+          <summary style="cursor:pointer;font-size:14px;font-weight:600;padding:6px 0;">下奶食物清单</summary>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;">
+            <span style="background:var(--green-light);padding:4px 10px;border-radius:12px;font-size:12px;color:var(--green);">鲫鱼豆腐汤</span>
+            <span style="background:var(--green-light);padding:4px 10px;border-radius:12px;font-size:12px;color:var(--green);">通草猪蹄汤（去油）</span>
+            <span style="background:var(--green-light);padding:4px 10px;border-radius:12px;font-size:12px;color:var(--green);">酒酿蛋花（煮透）</span>
+            <span style="background:var(--green-light);padding:4px 10px;border-radius:12px;font-size:12px;color:var(--green);">红枣枸杞水</span>
+            <span style="background:var(--green-light);padding:4px 10px;border-radius:12px;font-size:12px;color:var(--green);">无花果瘦肉汤</span>
+            <span style="background:var(--green-light);padding:4px 10px;border-radius:12px;font-size:12px;color:var(--green);">红豆汤</span>
+            <span style="background:var(--green-light);padding:4px 10px;border-radius:12px;font-size:12px;color:var(--green);">木瓜</span>
+            <span style="background:var(--green-light);padding:4px 10px;border-radius:12px;font-size:12px;color:var(--green);">丝瓜汤</span>
+            <span style="background:var(--green-light);padding:4px 10px;border-radius:12px;font-size:12px;color:var(--green);">牛奶/豆浆</span>
+            <span style="background:var(--green-light);padding:4px 10px;border-radius:12px;font-size:12px;color:var(--green);">小米粥</span>
+          </div>
+        </details>
+        <details>
+          <summary style="cursor:pointer;font-size:14px;font-weight:600;padding:6px 0;">回奶食物避雷清单</summary>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;">
+            <span style="background:var(--red-light);padding:4px 10px;border-radius:12px;font-size:12px;color:var(--red);">🚫 韭菜</span>
+            <span style="background:var(--red-light);padding:4px 10px;border-radius:12px;font-size:12px;color:var(--red);">🚫 麦芽/大麦茶</span>
+            <span style="background:var(--red-light);padding:4px 10px;border-radius:12px;font-size:12px;color:var(--red);">🚫 花椒</span>
+            <span style="background:var(--red-light);padding:4px 10px;border-radius:12px;font-size:12px;color:var(--red);">🚫 山楂（大量）</span>
+            <span style="background:var(--red-light);padding:4px 10px;border-radius:12px;font-size:12px;color:var(--red);">🚫 苦瓜（大量）</span>
+            <span style="background:var(--yellow-light);padding:4px 10px;border-radius:12px;font-size:12px;color:#b8860b;">⚠️ 薄荷</span>
+            <span style="background:var(--yellow-light);padding:4px 10px;border-radius:12px;font-size:12px;color:#b8860b;">⚠️ 人参</span>
+            <span style="background:var(--red-light);padding:4px 10px;border-radius:12px;font-size:12px;color:var(--red);">🚫 酒精</span>
+          </div>
+        </details>
+      </div>
+
+      <div class="bottom-btns">
+        <button class="btn" onclick="resetFitness()">重置</button>
+        <button class="btn btn-primary" onclick="saveFitness()">保存进度</button>
+      </div>
+    </div>
+    <div class="module-content" id="tab-idea">
+      <div class="page-header"><h2>想法记录</h2><div class="sub">灵感与创意收集</div></div>
+      <div class="card"><p style="font-size:14px;color:var(--text-light);text-align:center;padding:40px;">💡 想法记录模块建设中…</p></div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// ===== 导航切换 =====
+function switchTab(tab,el){
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  el.classList.add('active');
+  document.querySelectorAll('.module-content').forEach(m=>m.classList.remove('active'));
+  document.getElementById('tab-'+tab).classList.add('active');
+}
+
+// ===== 每日任务 =====
+function updateRing(){
+  const items=document.querySelectorAll('#todoList .todo-item');
+  const done=document.querySelectorAll('#todoList .todo-item.done');
+  const total=items.length,completed=done.length;
+  const pct=total>0?Math.round(completed/total*100):0;
+  const c=2*Math.PI*65;
+  document.getElementById('ringBar').style.strokeDashoffset=c-(pct/100)*c;
+  document.getElementById('ringPct').textContent=pct+'%';
+  document.getElementById('doneCount').textContent=completed;
+  document.getElementById('totalCount').textContent=total;
+}
+function toggleTodo(el){el.classList.toggle('done');updateRing();saveDaily();}
+function deleteTodo(e,btn){e.stopPropagation();btn.parentElement.remove();updateRing();saveDaily();}
+function addTask(){
+  const v=document.getElementById('newTask').value.trim();
+  if(!v)return;
+  const d=document.createElement('div');
+  d.className='todo-item';d.onclick=function(){toggleTodo(this);};
+  d.innerHTML='<div class="todo-check">✓</div><div class="todo-text">'+v+'</div><div class="todo-del" onclick="deleteTodo(event,this)">×</div>';
+  document.getElementById('todoList').appendChild(d);
+  document.getElementById('newTask').value='';
+  updateRing();saveDaily();
+}
+function clearAll(){if(confirm('确定清空所有任务？')){document.getElementById('todoList').innerHTML='';updateRing();saveDaily();}}
+function archive(){alert('📦 已存档！');}
+function save(){saveDaily();alert('✅ 已保存！');}
+function saveDaily(){
+  const t=[];document.querySelectorAll('#todoList .todo-item').forEach(el=>t.push({text:el.querySelector('.todo-text').textContent,done:el.classList.contains('done')}));
+  localStorage.setItem('daily_'+new Date().toISOString().slice(0,10),JSON.stringify(t));
+}
+function loadDaily(){
+  const s=localStorage.getItem('daily_'+new Date().toISOString().slice(0,10));
+  if(!s)return updateRing();
+  const t=JSON.parse(s),list=document.getElementById('todoList');list.innerHTML='';
+  t.forEach(x=>{const d=document.createElement('div');d.className='todo-item'+(x.done?' done':'');d.onclick=function(){toggleTodo(this);};d.innerHTML='<div class="todo-check">✓</div><div class="todo-text">'+x.text+'</div><div class="todo-del" onclick="deleteTodo(event,this)">×</div>';list.appendChild(d);});
+  updateRing();
+}
+
+// ===== 哺乳期减脂 =====
+function toggleFitCheck(el){el.classList.toggle('done');updateFitRing();saveFitness();}
+function updateFitRing(){
+  const all=document.querySelectorAll('#fitCheckList .check-row');
+  const done=document.querySelectorAll('#fitCheckList .check-row.done');
+  const pct=Math.round(done.length/5*100),c=2*Math.PI*65;
+  document.getElementById('fitRingBar').style.strokeDashoffset=c-(pct/100)*c;
+  document.getElementById('fitRingPct').textContent=pct+'%';
+  document.getElementById('fitDone').textContent=done.length;
+}
+function saveFitness(){
+  const checks=[];
+  document.querySelectorAll('#fitCheckList .check-row').forEach(el=>checks.push(el.classList.contains('done')));
+  localStorage.setItem('fitness_'+new Date().toISOString().slice(0,10),JSON.stringify(checks));
+}
+function resetFitness(){
+  if(!confirm('确定重置今日减脂打卡吗？'))return;
+  document.querySelectorAll('#fitCheckList .check-row').forEach(el=>el.classList.remove('done'));
+  localStorage.removeItem('fitness_'+new Date().toISOString().slice(0,10));
+  updateFitRing();
+}
+(function initFitness(){
+  const checks=JSON.parse(localStorage.getItem('fitness_'+new Date().toISOString().slice(0,10))||'[]');
+  document.querySelectorAll('#fitCheckList .check-row').forEach((el,i)=>{if(checks[i])el.classList.add('done');});
+  updateFitRing();
+})();
+
+// ===== 缅甸语学习 =====
+const consonants=[
+  {m:'က',p:'ka'},{m:'ခ',p:'kha'},{m:'ဂ',p:'ga'},{m:'ဃ',p:'gha'},{m:'င',p:'nga'},
+  {m:'စ',p:'sa'},{m:'ဆ',p:'hsa'},{m:'ဇ',p:'za'},{m:'ဈ',p:'zha'},{m:'ည',p:'nya'},
+  {m:'ဋ',p:'ta'},{m:'ဌ',p:'hta'},{m:'ဍ',p:'da'},{m:'ဎ',p:'dha'},{m:'ဏ',p:'na'},
+  {m:'တ',p:'ta'},{m:'ထ',p:'hta'},{m:'ဒ',p:'da'},{m:'ဓ',p:'dha'},{m:'န',p:'na'},
+  {m:'ပ',p:'pa'},{m:'ဖ',p:'hpa'},{m:'ဗ',p:'ba'},{m:'ဘ',p:'bha'},{m:'မ',p:'ma'},
+  {m:'ယ',p:'ya'},{m:'ရ',p:'ra'},{m:'လ',p:'la'},{m:'ဝ',p:'wa'},{m:'သ',p:'tha'},
+  {m:'ဟ',p:'ha'},{m:'ဠ',p:'la'},{m:'အ',p:'a'}
+];
+function renderAlpha(){
+  const grid=document.getElementById('alphaGrid'),saved=JSON.parse(localStorage.getItem('myanmar_alpha')||'[]');
+  consonants.forEach((c,i)=>{
+    const card=document.createElement('div');
+    card.className='alpha-card'+(saved.includes(i)?' done':'');
+    card.style.cssText=saved.includes(i)?'border-color:var(--green);background:var(--green-light);':'';
+    card.innerHTML='<div class="my">'+c.m+'</div><div class="py">'+c.p+'</div>';
+    card.onclick=function(){
+      const idx=saved.indexOf(i);
+      if(idx>-1){saved.splice(idx,1);card.style.borderColor='var(--border)';card.style.background='var(--card)';}
+      else{saved.push(i);card.style.borderColor='var(--green)';card.style.background='var(--green-light)';}
+      localStorage.setItem('myanmar_alpha',JSON.stringify(saved));
+      updateMyanmarRing();
+    };
+    grid.appendChild(card);
+  });
+}
+function toggleMyCheck(el){el.classList.toggle('done');updateMyanmarRing();saveMyanmar();}
+function updateMyanmarRing(){
+  const alphaDone=(JSON.parse(localStorage.getItem('myanmar_alpha')||'[]')).length;
+  const checkDone=document.querySelectorAll('#myCheckList .check-row.done').length;
+  const total=33+4,done=alphaDone+checkDone;
+  const pct=Math.round(done/total*100),c=2*Math.PI*65;
+  document.getElementById('myRingBar').style.strokeDashoffset=c-(pct/100)*c;
+  document.getElementById('myRingPct').textContent=pct+'%';
+  document.getElementById('myDone').textContent=done;
+}
+function saveMyanmar(){
+  const checks=[];
+  document.querySelectorAll('#myCheckList .check-row').forEach(el=>checks.push(el.classList.contains('done')));
+  localStorage.setItem('myanmar_checks',JSON.stringify(checks));
+  alert('✅ 缅甸语学习进度已保存！');
+}
+function resetMyanmar(){
+  if(!confirm('确定重置所有缅甸语学习进度吗？'))return;
+  localStorage.removeItem('myanmar_alpha');localStorage.removeItem('myanmar_checks');
+  location.reload();
+}
+(function initMyanmar(){
+  renderAlpha();
+  const checks=JSON.parse(localStorage.getItem('myanmar_checks')||'[]');
+  document.querySelectorAll('#myCheckList .check-row').forEach((el,i)=>{if(checks[i])el.classList.add('done');});
+  updateMyanmarRing();
+})();
+
+// ===== 英语学习 =====
+function toggleEnCheck(el){el.classList.toggle('done');updateEnRing();saveEnglish();}
+function updateEnRing(){
+  const done=document.querySelectorAll('#enCheckList .check-row.done').length,total=3;
+  const pct=Math.round(done/total*100),c=2*Math.PI*65;
+  document.getElementById('enRingBar').style.strokeDashoffset=c-(pct/100)*c;
+  document.getElementById('enRingPct').textContent=pct+'%';
+  document.getElementById('enDone').textContent=done;
+}
+function saveEnglish(){
+  const checks=[];
+  document.querySelectorAll('#enCheckList .check-row').forEach(el=>checks.push(el.classList.contains('done')));
+  localStorage.setItem('en_'+new Date().toISOString().slice(0,10),JSON.stringify(checks));
+}
+function resetEnglish(){
+  if(!confirm('确定重置今日英语打卡吗？'))return;
+  document.querySelectorAll('#enCheckList .check-row').forEach(el=>el.classList.remove('done'));
+  localStorage.removeItem('en_'+new Date().toISOString().slice(0,10));
+  updateEnRing();
+}
+(function initEnglish(){
+  const checks=JSON.parse(localStorage.getItem('en_'+new Date().toISOString().slice(0,10))||'[]');
+  document.querySelectorAll('#enCheckList .check-row').forEach((el,i)=>{if(checks[i])el.classList.add('done');});
+  updateEnRing();
+})();
+
+// ===== 初级会计备考 =====
+function toggleAccCheck(el){el.classList.toggle('done');updateAccRing();saveAccounting();}
+function updateAccRing(){
+  const done=document.querySelectorAll('#accCheckList .check-row.done').length;
+  const pct=Math.round(done/4*100),c=2*Math.PI*65;
+  document.getElementById('accRingBar').style.strokeDashoffset=c-(pct/100)*c;
+  document.getElementById('accRingPct').textContent=pct+'%';
+  document.getElementById('accDone').textContent=done;
+}
+function saveAccounting(){
+  const checks=[];
+  document.querySelectorAll('#accCheckList .check-row').forEach(el=>checks.push(el.classList.contains('done')));
+  localStorage.setItem('acc_'+new Date().toISOString().slice(0,10),JSON.stringify(checks));
+}
+function resetAccounting(){
+  if(!confirm('确定重置今日会计备考打卡吗？'))return;
+  document.querySelectorAll('#accCheckList .check-row').forEach(el=>el.classList.remove('done'));
+  localStorage.removeItem('acc_'+new Date().toISOString().slice(0,10));
+  updateAccRing();
+}
+(function initAccounting(){
+  const checks=JSON.parse(localStorage.getItem('acc_'+new Date().toISOString().slice(0,10))||'[]');
+  document.querySelectorAll('#accCheckList .check-row').forEach((el,i)=>{if(checks[i])el.classList.add('done');});
+  updateAccRing();
+})();
+
+// ===== 新闻 =====
+let newsData=[];
+let newsIndex=0;
+function formatHeat(score){
+  const n=parseInt(score);
+  if(n>=10000)return (n/10000).toFixed(0)+'万';
+  return n+'';
+}
+function renderNews(data){
+  newsData=data.slice(0,10);
+  const tbody=document.getElementById('newsBody');
+  tbody.innerHTML=newsData.map((n,i)=>'<tr style="cursor:pointer;" onclick="newsIndex='+i+';highlightNews();" id="newsRow'+i+'"><td>'+(i+1)+'</td><td>'+n.title+'</td><td style="font-size:12px;color:var(--text-light);">🔥 '+formatHeat(n.content.replace('热度: ',''))+'</td></tr>').join('');
+  document.getElementById('newsLoading').style.display='none';
+  document.getElementById('newsTable').style.display='';
+  document.getElementById('newsTime').textContent='更新于 '+new Date().toLocaleTimeString();
+  saveNewsCache(data.slice(0,10));
+}
+function highlightNews(){
+  document.querySelectorAll('#newsBody tr').forEach(r=>r.style.background='');
+  const row=document.getElementById('newsRow'+newsIndex);
+  if(row)row.style.background='var(--yellow-light)';
+}
+function openNewsLink(){
+  if(newsData.length===0)return alert('暂无新闻数据');
+  window.open(newsData[newsIndex].url,'_blank');
+}
+function refreshNews(){
+  document.getElementById('newsLoading').style.display='';
+  document.getElementById('newsTable').style.display='none';
+  document.getElementById('newsLoading').textContent='⏳ 正在加载新闻…';
+  fetchNews();
+}
+function fetchNews(){
+  fetch('https://orz.ai/api/v1/dailynews/?platform=jinritoutiao')
+    .then(r=>r.json())
+    .then(d=>{if(d.status==='200')renderNews(d.data);else throw new Error('API error');})
+    .catch(()=>{
+      fetch('https://orz.ai/api/v1/dailynews/?platform=baidu')
+        .then(r=>r.json())
+        .then(d=>{if(d.status==='200')renderNews(d.data);else showNewsFallback();})
+        .catch(()=>showNewsFallback());
+    });
+}
+function showNewsFallback(){
+  const cached=localStorage.getItem('news_cache');
+  if(cached){
+    const data=JSON.parse(cached);
+    renderNews(data);
+    document.getElementById('newsTime').textContent+=' (缓存)';
+  }else{
+    document.getElementById('newsLoading').textContent='❌ 加载失败，请点击刷新按钮重试';
+  }
+}
+function saveNewsCache(data){localStorage.setItem('news_cache',JSON.stringify(data));}
+(function initNews(){
+  const cached=localStorage.getItem('news_cache');
+  if(cached){
+    renderNews(JSON.parse(cached));
+    document.getElementById('newsTime').textContent='更新于 '+new Date().toLocaleTimeString()+' (缓存)';
+    fetchNews(); // 后台更新
+  }else{
+    fetchNews();
+  }
+})();
+
+// ===== 理财知识 =====
+function toggleMoneyCheck(el){el.classList.toggle('done');updateMoneyRing();saveMoney();}
+function updateMoneyRing(){
+  const done=document.querySelectorAll('#moneyCheckList .check-row.done').length;
+  const pct=Math.round(done/3*100),c=2*Math.PI*65;
+  document.getElementById('moneyRingBar').style.strokeDashoffset=c-(pct/100)*c;
+  document.getElementById('moneyRingPct').textContent=pct+'%';
+  document.getElementById('moneyDone').textContent=done;
+}
+function saveMoney(){
+  const checks=[];
+  document.querySelectorAll('#moneyCheckList .check-row').forEach(el=>checks.push(el.classList.contains('done')));
+  localStorage.setItem('money_'+new Date().toISOString().slice(0,10),JSON.stringify(checks));
+}
+function resetMoney(){
+  if(!confirm('确定重置今日理财打卡吗？'))return;
+  document.querySelectorAll('#moneyCheckList .check-row').forEach(el=>el.classList.remove('done'));
+  localStorage.removeItem('money_'+new Date().toISOString().slice(0,10));
+  updateMoneyRing();
+}
+(function initMoney(){
+  const checks=JSON.parse(localStorage.getItem('money_'+new Date().toISOString().slice(0,10))||'[]');
+  document.querySelectorAll('#moneyCheckList .check-row').forEach((el,i)=>{if(checks[i])el.classList.add('done');});
+  updateMoneyRing();
+})();
+
+// ===== 初始化 =====
+loadDaily();
+</script>
+</body>
+</html>
