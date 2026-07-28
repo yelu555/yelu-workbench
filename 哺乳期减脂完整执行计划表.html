@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>母乳亲喂｜哺乳期减脂完整执行计划表</title>
+<style>
+  :root{
+    --primary:#d63384;
+    --primary-light:#fbe5ef;
+    --secondary:#6a4c93;
+    --accent:#f4a261;
+    --green:#2a9d8f;
+    --green-light:#e6f4f1;
+    --red:#e63946;
+    --red-light:#fce8ea;
+    --yellow:#fcbf49;
+    --yellow-light:#fff5dc;
+    --gray:#6c757d;
+    --border:#e9ecef;
+    --text:#2b2d42;
+    --bg:#fff8fb;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    font-family:"PingFang SC","Microsoft YaHei","Helvetica Neue",sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    line-height:1.6;
+    padding:30px 20px;
+    max-width:1100px;
+    margin:0 auto;
+  }
+  .cover{
+    text-align:center;
+    padding:40px 20px 30px;
+    background:linear-gradient(135deg,#d63384 0%,#6a4c93 100%);
+    color:#fff;
+    border-radius:16px;
+    margin-bottom:28px;
+  }
+  .cover h1{font-size:30px;margin-bottom:10px;letter-spacing:1px;}
+  .cover .sub{font-size:15px;opacity:.95;margin-bottom:18px;}
+  .cover .principles{
+    display:flex;flex-wrap:wrap;justify-content:center;gap:8px;
+  }
+  .cover .principles span{
+    background:rgba(255,255,255,.2);
+    padding:6px 14px;border-radius:20px;font-size:13px;
+    backdrop-filter:blur(4px);
+  }
+  .meta{
+    display:flex;justify-content:space-between;align-items:center;
+    background:#fff;border:1px solid var(--border);
+    border-radius:10px;padding:14px 20px;margin-bottom:28px;
+    font-size:13px;color:var(--gray);flex-wrap:wrap;gap:10px;
+  }
+  .meta b{color:var(--primary);}
+  section{
+    background:#fff;border-radius:14px;
+    padding:24px 22px;margin-bottom:24px;
+    box-shadow:0 2px 12px rgba(214,51,132,.06);
+    border:1px solid var(--border);
+  }
+  section h2{
+    font-size:20px;color:var(--primary);
+    border-left:5px solid var(--primary);
+    padding-left:12px;margin-bottom:18px;
+    display:flex;align-items:center;gap:8px;
+  }
+  section h2 .num{
+    background:var(--primary);color:#fff;
+    width:28px;height:28px;border-radius:50%;
+    display:inline-flex;align-items:center;justify-content:center;
+    font-size:14px;padding-left:0;
+  }
+  section h3{
+    font-size:15px;color:var(--secondary);
+    margin:18px 0 10px;padding-bottom:5px;
+    border-bottom:2px dashed var(--primary-light);
+  }
+  table{
+    width:100%;border-collapse:collapse;
+    font-size:13px;margin-bottom:14px;
+    background:#fff;
+  }
+  th{
+    background:var(--primary-light);color:var(--primary);
+    padding:10px 8px;text-align:left;
+    border:1px solid #f3d4e2;font-weight:600;
+  }
+  td{
+    padding:9px 8px;border:1px solid var(--border);
+    vertical-align:top;
+  }
+  tr:nth-child(even) td{background:#fdf7fa;}
+  .tag{
+    display:inline-block;padding:2px 8px;border-radius:10px;
+    font-size:11px;font-weight:600;margin:1px;
+  }
+  .tag-ok{background:var(--green-light);color:var(--green);}
+  .tag-warn{background:var(--yellow-light);color:#b8860b;}
+  .tag-no{background:var(--red-light);color:var(--red);}
+  .tag-pink{background:var(--primary-light);color:var(--primary);}
+  .note{
+    background:var(--yellow-light);border-left:4px solid var(--yellow);
+    padding:12px 16px;border-radius:6px;font-size:13px;margin:12px 0;
+  }
+  .note-red{
+    background:var(--red-light);border-left:4px solid var(--red);
+  }
+  .note-green{
+    background:var(--green-light);border-left:4px solid var(--green);
+  }
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;}
+  @media(max-width:768px){
+    .grid-2,.grid-3{grid-template-columns:1fr;}
+    .cover h1{font-size:24px;}
+  }
+  .stat-card{
+    background:linear-gradient(135deg,#fff 0%,var(--primary-light) 100%);
+    border:1px solid #f3d4e2;border-radius:10px;
+    padding:14px;text-align:center;
+  }
+  .stat-card .v{font-size:24px;font-weight:700;color:var(--primary);}
+  .stat-card .l{font-size:12px;color:var(--gray);margin-top:4px;}
+  ul{padding-left:18px;margin:8px 0;}
+  ul li{margin:5px 0;font-size:13px;}
+  .week-table th{background:var(--secondary);color:#fff;border-color:#5a3f7e;}
+  .week-table td:first-child{font-weight:600;color:var(--secondary);background:#f3eef9;}
+  .food-card{
+    border:1px solid var(--border);border-radius:10px;
+    padding:14px;margin-bottom:10px;
+  }
+  .food-card h4{
+    font-size:14px;margin-bottom:8px;
+    display:flex;align-items:center;gap:6px;
+  }
+  .food-list{display:flex;flex-wrap:wrap;gap:6px;}
+  .food-list span{
+    background:#f5f5f5;padding:4px 10px;border-radius:12px;
+    font-size:12px;
+  }
+  .footer{
+    text-align:center;padding:20px;color:var(--gray);
+    font-size:12px;border-top:1px solid var(--border);margin-top:20px;
+  }
+  .water-progress{
+    display:flex;gap:4px;margin:10px 0;flex-wrap:wrap;
+  }
+  .water-cup{
+    width:36px;height:44px;border:2px solid var(--primary);
+    border-radius:0 0 8px 8px;position:relative;
+    background:transparent;
+  }
+  .water-cup::after{
+    content:"";position:absolute;bottom:0;left:0;right:0;
+    height:70%;background:var(--primary-light);
+    border-radius:0 0 6px 6px;
+  }
+  .water-cup small{
+    position:absolute;top:-18px;left:50%;transform:translateX(-50%);
+    font-size:9px;color:var(--gray);white-space:nowrap;
+  }
+  @media print{
+    body{background:#fff;padding:0;max-width:100%;}
+    section{box-shadow:none;break-inside:avoid;page-break-inside:avoid;margin-bottom:14px;}
+    .cover{break-inside:avoid;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    th,td{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  }
+</style>
+</head>
+<body>
+
+<!-- 封面 -->
+<div class="cover">
+  <h1>母乳亲喂｜哺乳期减脂完整执行计划表</h1>
+  <p class="sub">奶量优先 · 温和掉秤 · 适合宝妈碎片化执行</p>
+  <div class="principles">
+    <span>每周减重 0.3-0.5kg</span>
+    <span>每日热量 ≥ 1800 kcal</span>
+    <span>三餐 + 2 加餐</span>
+    <span>不节食 · 不断碳 · 不吃药</span>
+    <span>产后修复优先</span>
+  </div>
+</div>
+
+<!-- 速览卡 -->
+<div class="meta">
+  <div>📋 适用对象：<b>产后 42 天后 · 已通过复查 · 母乳亲喂期宝妈</b></div>
+  <div>📅 周期：<b>4 周为一个循环</b></div>
+  <div>⚖️ 目标：<b>每周 -0.3~-0.5 kg</b></div>
+  <div>🩺 必要前提：<b>恶露已净 · 伤口愈合 · 医生许可</b></div>
+</div>
+
+<!-- 模块一 -->
+<section>
+  <h2><span class="num">1</span>每日饮食方案</h2>
+
+  <div class="grid-3" style="margin-bottom:16px;">
+    <div class="stat-card"><div class="v">≥1800</div><div class="l">每日热量下限 (kcal)</div></div>
+    <div class="stat-card"><div class="v">3+2</div><div class="l">三餐 + 2 加餐</div></div>
+    <div class="stat-card"><div class="v">80-100g</div><div class="l">每日蛋白质</div></div>
+  </div>
+
+  <h3>餐次安排</h3>
+  <table>
+    <tr>
+      <th style="width:14%;">餐次</th>
+      <th style="width:16%;">时间</th>
+      <th style="width:30%;">食物搭配</th>
+      <th style="width:14%;">热量占比</th>
+      <th>说明</th>
+    </tr>
+    <tr>
+      <td><b>早餐</b></td>
+      <td>7:00-8:00</td>
+      <td>主食 1 份 + 蛋白 1 份 + 奶/豆浆 + 蔬菜</td>
+      <td>约 25%</td>
+      <td>亲喂完即吃，补充夜间消耗</td>
+    </tr>
+    <tr>
+      <td><b>早加餐</b></td>
+      <td>10:00-10:30</td>
+      <td>水果 1 拳 + 坚果 1 小把（约 15g）</td>
+      <td>约 10%</td>
+      <td>补水分、补铁，避免空腹喂奶</td>
+    </tr>
+    <tr>
+      <td><b>午餐</b></td>
+      <td>12:00-13:00</td>
+      <td>主食 1 份 + 高蛋白 1.5 份 + 蔬菜 2 种 + 汤 1 碗</td>
+      <td>约 30%</td>
+      <td>汤先喝、菜多吃、肉适量、饭在后</td>
+    </tr>
+    <tr>
+      <td><b>下午加餐</b></td>
+      <td>15:30-16:00</td>
+      <td>奶/豆浆 1 杯 + 全麦面包 1 片 / 蛋 1 个</td>
+      <td>约 10%</td>
+      <td>预防傍晚饿、稳血糖、助下奶</td>
+    </tr>
+    <tr>
+      <td><b>晚餐</b></td>
+      <td>18:00-19:00</td>
+      <td>主食 0.7 份 + 蛋白 1 份 + 蔬菜 2 种</td>
+      <td>约 25%</td>
+      <td>七分饱，睡前 2 小时不再进食</td>
+    </tr>
+  </table>
+
+  <h3>哺乳期食材红绿灯</h3>
+  <table>
+    <tr>
+      <th style="width:18%;">分类</th>
+      <th style="width:34%;"><span class="tag tag-ok">✅ 可吃</span></th>
+      <th style="width:30%;"><span class="tag tag-warn">⚠️ 慎吃</span></th>
+      <th style="width:18%;"><span class="tag tag-no">🚫 禁止</span></th>
+    </tr>
+    <tr>
+      <td><b>主食碳水</b></td>
+      <td>糙米、燕麦、藜麦、红薯、玉米、全麦面包、小米</td>
+      <td>白米饭（控量）、面条（少油）</td>
+      <td>断碳/极低碳水</td>
+    </tr>
+    <tr>
+      <td><b>优质蛋白</b></td>
+      <td>鸡蛋、鸡胸、鱼虾、瘦牛肉、豆腐、牛奶、希腊酸奶</td>
+      <td>深海大型鱼（汞风险，每周≤1次）</td>
+      <td>生鱼片、未熟肉</td>
+    </tr>
+    <tr>
+      <td><b>蔬菜</b></td>
+      <td>菠菜、西兰花、胡萝卜、冬瓜、海带、木耳、西红柿</td>
+      <td>韭菜、苦瓜（大量可能回奶）</td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td><b>水果</b></td>
+      <td>苹果、木瓜、猕猴桃、蓝莓、橙子、火龙果</td>
+      <td>榴莲、龙眼（糖高控量）</td>
+      <td>山楂（大量可能回奶）</td>
+    </tr>
+    <tr>
+      <td><b>汤水/饮品</b></td>
+      <td>温水、低脂牛奶、豆浆、红枣枸杞水、鲫鱼豆腐汤</td>
+      <td>咖啡（≤200mg/天，喂奶后再喝）</td>
+      <td>浓茶、酒精、功能饮料</td>
+    </tr>
+    <tr>
+      <td><b>油脂/坚果</b></td>
+      <td>橄榄油、亚麻籽油、核桃、杏仁</td>
+      <td>花生（过敏体质慎吃）</td>
+      <td>反式脂肪、油炸食品</td>
+    </tr>
+  </table>
+
+  <div class="note">
+    <b>💡 减脂小窍门：</b>主食放最后吃，先喝汤 → 再吃菜 → 再吃肉 → 最后吃主食，可降低餐后血糖波动，减少脂肪囤积。
+  </div>
+</section>
+
+<!-- 模块二 -->
+<section>
+  <h2><span class="num">2</span>饮水安排</h2>
+
+  <div class="grid-2">
+    <div>
+      <h3>每日饮水目标</h3>
+      <table>
+        <tr><th>项目</th><th>标准</th></tr>
+        <tr><td>每日总量</td><td><b>2500-3000 ml</b>（含汤奶）</td></tr>
+        <tr><td>白开水</td><td>≥ 2000 ml</td></tr>
+        <tr><td>每次喂奶前</td><td>喝 200-300 ml 温水</td></tr>
+        <tr><td>每次喂奶后</td><td>补 150 ml</td></tr>
+        <tr><td>水温</td><td>温热 35-40℃ 为佳</td></tr>
+      </table>
+    </div>
+    <div>
+      <h3>分时段饮水节奏</h3>
+      <table>
+        <tr><th>时间</th><th>量</th><th>提示</th></tr>
+        <tr><td>晨起空腹</td><td>300ml</td><td>唤醒代谢</td></tr>
+        <tr><td>9:00 / 10:30</td><td>各 250ml</td><td>上午补水</td></tr>
+        <tr><td>午餐前</td><td>200ml</td><td>饭前助饱腹</td></tr>
+        <tr><td>14:00 / 15:30</td><td>各 250ml</td><td>下午下奶</td></tr>
+        <tr><td>晚餐前</td><td>200ml</td><td>控食欲</td></tr>
+        <tr><td>20:00</td><td>200ml</td><td>睡前 2 小时停</td></tr>
+        <tr><td>夜奶后</td><td>150ml</td><td>温水保温杯备好</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <h3>8 杯水可视化打卡</h3>
+  <div class="water-progress">
+    <div class="water-cup"><small>晨起</small></div>
+    <div class="water-cup"><small>10:00</small></div>
+    <div class="water-cup"><small>饭前</small></div>
+    <div class="water-cup"><small>13:00</small></div>
+    <div class="water-cup"><small>15:30</small></div>
+    <div class="water-cup"><small>17:00</small></div>
+    <div class="water-cup"><small>19:00</small></div>
+    <div class="water-cup"><small>夜奶后</small></div>
+  </div>
+  <p style="font-size:12px;color:var(--gray);">每杯约 250ml，喝完一格打勾。哺乳期缺水直接导致奶量下降，<b>不要等渴了才喝</b>。</p>
+
+  <div class="note note-green">
+    <b>✅ 下奶饮品推荐：</b>红枣枸杞水、酒酿蛋花（去酒精煮透）、通草猪蹄汤（去油）、无花果瘦肉汤、豆浆牛奶交替。
+  </div>
+</section>
+
+<!-- 模块三 -->
+<section>
+  <h2><span class="num">3</span>运动方案</h2>
+
+  <div class="note note-red">
+    <b>⚠️ 核心原则：</b>产后 6 周内/腹直肌分离 > 2 指，<b>禁止</b>跑跳、卷腹、平板支撑、仰卧起坐、高强度 HIIT。优先修复盆底肌 + 腹直肌。
+  </div>
+
+  <h3>阶段安排（4 周循环）</h3>
+  <table>
+    <tr>
+      <th>阶段</th>
+      <th>时间</th>
+      <th>训练重点</th>
+      <th>单次时长</th>
+      <th>强度</th>
+      <th>动作示例</th>
+    </tr>
+    <tr>
+      <td><b>第 1 阶段</b></td>
+      <td>第 1-2 周</td>
+      <td>盆底肌修复 + 腹直肌修复 + 拉伸</td>
+      <td>15-20 min</td>
+      <td><span class="tag tag-ok">极低</span></td>
+      <td>凯格尔、腹式呼吸、死虫式、猫牛式、臀桥</td>
+    </tr>
+    <tr>
+      <td><b>第 2 阶段</b></td>
+      <td>第 3-4 周</td>
+      <td>低强度有氧 + 核心稳定</td>
+      <td>25-30 min</td>
+      <td><span class="tag tag-warn">低</span></td>
+      <td>快走、靠墙静蹲、站姿提踵、改良俯卧撑</td>
+    </tr>
+    <tr>
+      <td><b>巩固期</b></td>
+      <td>第 5 周起</td>
+      <td>渐进加强（评估腹直肌合格后）</td>
+      <td>30-40 min</td>
+      <td><span class="tag tag-pink">中低</span></td>
+      <td>椭圆机、产后瑜伽、轻量哑铃</td>
+    </tr>
+  </table>
+
+  <h3>工作日 vs 碎片化运动安排</h3>
+  <table>
+    <tr>
+      <th style="width:14%;">场景</th>
+      <th style="width:18%;">时段</th>
+      <th style="width:28%;">10-15 分钟碎片运动</th>
+      <th>动作清单</th>
+    </tr>
+    <tr>
+      <td><b>晨起</b></td>
+      <td>6:30-6:45</td>
+      <td>唤醒 + 拉伸</td>
+      <td>猫牛式 ×10、腹式呼吸 ×20、婴儿式拉伸 1 min</td>
+    </tr>
+    <tr>
+      <td><b>带娃午休</b></td>
+      <td>13:00-13:15</td>
+      <td>修复 + 激活</td>
+      <td>凯格尔 ×30、臀桥 ×15、死虫式 ×10</td>
+    </tr>
+    <tr>
+      <td><b>傍晚</b></td>
+      <td>17:00-17:20</td>
+      <td>有氧（推婴儿车快走）</td>
+      <td>快走 20 min，心率 110-120</td>
+    </tr>
+    <tr>
+      <td><b>睡前</b></td>
+      <td>21:30-21:45</td>
+      <td>放松 + 助眠</td>
+      <td>下犬式、坐姿前屈、鸽子式各 1 min</td>
+    </tr>
+    <tr>
+      <td><b>周末完整</b></td>
+      <td>宝宝午睡</td>
+      <td>完整训练 30 min</td>
+      <td>热身 5' + 主体 20' + 拉伸 5'</td>
+    </tr>
+  </table>
+
+  <h3>动作示范说明</h3>
+  <table>
+    <tr><th style="width:20%;">动作</th><th style="width:18%;">目标肌群</th><th>要点</th></tr>
+    <tr><td><b>凯格尔</b></td><td>盆底肌</td><td>缩肛/憋尿感，收缩 5 秒放松 5 秒，10 次为 1 组</td></tr>
+    <tr><td><b>腹式呼吸</b></td><td>腹横肌</td><td>鼻吸口呼，吸气腹部鼓起，呼气收紧，3 秒吸 6 秒呼</td></tr>
+    <tr><td><b>死虫式</b></td><td>核心稳定</td><td>仰卧，对侧手脚缓慢伸展，腰部不离开地面</td></tr>
+    <tr><td><b>臀桥</b></td><td>臀+盆底</td><td>仰卧屈膝，抬臀至肩膝一条线，顶峰收紧 2 秒</td></tr>
+    <tr><td><b>猫牛式</b></td><td>脊柱+核心</td><td>四点支撑，吸气塌腰抬头，呼气拱背低头</td></tr>
+  </table>
+
+  <div class="note">
+    <b>💡 碎片化执行口诀：</b>「喂奶前后练呼吸，宝宝趴睡做臀桥，推车出门快步走，睡前 5 分拉伸收。」
+  </div>
+</section>
+
+<!-- 模块四 -->
+<section>
+  <h2><span class="num">4</span>作息安排</h2>
+
+  <table>
+    <tr>
+      <th style="width:16%;">时段</th>
+      <th style="width:20%;">事项</th>
+      <th>说明</th>
+    </tr>
+    <tr><td>06:30-07:00</td><td>起床 + 喝水 + 唤醒拉伸</td><td>晨起 300ml 温水，10 分钟拉伸</td></tr>
+    <tr><td>07:00-07:30</td><td>亲喂 + 早餐</td><td>先喂后吃，补充夜间消耗</td></tr>
+    <tr><td>08:30-10:00</td><td>宝宝小睡 / 宝妈活动</td><td>做家务或轻量活动，避免久坐</td></tr>
+    <tr><td>10:00-10:30</td><td>加餐 + 亲喂</td><td>水果 + 坚果</td></tr>
+    <tr><td>11:30-12:30</td><td>午餐 + 亲喂</td><td>先汤后菜再饭</td></tr>
+    <tr><td>13:00-14:00</td><td><b>同步午睡</b></td><td>跟随宝宝入睡，<b>别刷手机</b></td></tr>
+    <tr><td>15:30-16:00</td><td>加餐 + 亲喂</td><td>牛奶/豆浆 + 全麦面包</td></tr>
+    <tr><td>17:00-18:00</td><td>傍晚运动 + 亲喂</td><td>推车快走 20 分钟</td></tr>
+    <tr><td>18:00-19:00</td><td>晚餐</td><td>七分饱，少油盐</td></tr>
+    <tr><td>20:00-21:00</td><td>亲子互动 + 睡前仪式</td><td>洗澡、抚触、调暗灯光</td></tr>
+    <tr><td>21:00-21:30</td><td>睡前亲喂 + 拉伸</td><td>建立「睡前奶」联想</td></tr>
+    <tr><td>21:30-22:00</td><td><b>宝妈入睡</b></td><td>争取在宝宝前入睡，手机勿入卧室</td></tr>
+    <tr><td>夜间 2-3 次</td><td>夜�� + 补水</td><td>床头备保温杯，喂完即睡</td></tr>
+  </table>
+
+  <div class="grid-3">
+    <div class="note note-green">
+      <b>😴 睡眠提示</b><br>
+      抓住白天宝宝小睡同步休息，每天累计睡眠 ≥ 7 小时（含午睡）。睡眠不足会升高皮质醇，<b>直接影响奶量且阻碍减脂</b>。
+    </div>
+    <div class="note">
+      <b>🌙 夜奶策略</b><br>
+      侧卧位喂奶减轻腰背压力；床头备温水 + 小饼干；夜奶后不刷手机。
+    </div>
+    <div class="note note-red">
+      <b>⚠️ 红线</b><br>
+      连续 3 天睡眠 < 5 小时需暂停运动，优先补觉；情绪低落持续 2 周及时就医排查产后抑郁。
+    </div>
+  </div>
+</section>
+
+<!-- 模块五 -->
+<section>
+  <h2><span class="num">5</span>避坑注意事项</h2>
+
+  <table>
+    <tr>
+      <th style="width:20%;">类别</th>
+      <th style="width:38%;">❌ 常见错误</th>
+      <th>✅ 正确做法</th>
+    </tr>
+    <tr>
+      <td><b>饮食陷阱</b></td>
+      <td>断碳/极低碳水；只喝汤不吃肉；代餐断食；盲目效仿网红食谱</td>
+      <td>碳水占 45-50%，蛋白质 80-100g/天，主食粗细搭配</td>
+    </tr>
+    <tr>
+      <td><b>下奶误区</b></td>
+      <td>浓汤大补（猪脚汤/老母鸡汤撇油前）；大量红糖；酒酿不煮透</td>
+      <td>汤要清淡去油，肉比汤更有营养，红糖 ≤ 10 天</td>
+    </tr>
+    <tr>
+      <td><b>运动损伤</b></td>
+      <td>过早卷腹/平板/跑步；腹直肌未修复就练核心</td>
+      <td>先自测腹直肌分离 �� 2 指再做进阶动作</td>
+    </tr>
+    <tr>
+      <td><b>减脂节奏</b></td>
+      <td>追求每周掉 1kg+；天天称重焦虑</td>
+      <td>每周 0.3-0.5kg，固定每周一晨起空腹称</td>
+    </tr>
+    <tr>
+      <td><b>奶量监控</b></td>
+      <td>只看体重不看奶量；宝宝哭闹就怀疑自己奶不够</td>
+      <td>看尿量（≥6 次/天）+ 体重曲线，奶量下降立即加餐</td>
+    </tr>
+    <tr>
+      <td><b>情绪管理</b></td>
+      <td>焦虑自责；熬夜刷手机代偿</td>
+      <td>允许慢，记录小进步，必要时求助家人</td>
+    </tr>
+    <tr>
+      <td><b>药物/补剂</b></td>
+      <td>吃减肥药、泻药、代餐粉；盲目喝下奶茶</td>
+      <td>不使用任何减脂药物，营养优先来自食物</td>
+    </tr>
+    <tr>
+      <td><b>回奶误踩</b></td>
+      <td>大量韭菜、山楂、苦瓜、麦乳精、薄荷</td>
+      <td>少量调味无妨，避免连续大量食用</td>
+    </tr>
+  </table>
+
+  <div class="note note-red">
+    <b>🚫 严禁事项：</b>① 减肥药/泻药/代餐断食 ② 酒精 ③ 极低碳水/断碳 ④ 卷腹跑跳（产后 6 周内） ⑤ 暴力束腹带 ⑥ 过度节食（< 1800 kcal）
+  </div>
+</section>
+
+<!-- 模块六 -->
+<section>
+  <h2><span class="num">6</span>每周体重监测目标</h2>
+
+  <table>
+    <tr>
+      <th>周次</th>
+      <th>目标减重</th>
+      <th>累计减重</th>
+      <th>监测重点</th>
+      <th>调整信号</th>
+    </tr>
+    <tr><td><b>第 1 周</b></td><td>0.3-0.5 kg</td><td>0.3-0.5</td><td>适应节奏，记录基础体重</td><td>奶量正常即继续</td></tr>
+    <tr><td><b>第 2 周</b></td><td>0.3-0.5 kg</td><td>0.6-1.0</td><td>观察奶量 + 尿量</td><td>奶量↓则加 200kcal</td></tr>
+    <tr><td><b>第 3 周</b></td><td>0.3-0.5 kg</td><td>0.9-1.5</td><td>腰围/腹围测量</td><td>不掉秤不焦虑，看围度</td></tr>
+    <tr><td><b>第 4 周</b></td><td>0.3-0.5 kg</td><td>1.2-2.0</td><td>小结 + 调整下月计划</td><td>达标则进阶运动</td></tr>
+  </table>
+
+  <h3>称重规范</h3>
+  <ul>
+    <li><b>固定时间：</b>每周一晨起、排空大小便后、亲喂前</li>
+    <li><b>固定着装：</b>穿同件薄睡衣或裸称</li>
+    <li><b>固定体重秤：</b>同一台，放平硬地面</li>
+    <li><b>记录三数据：</b>体重 + 腰围（肚脐一圈）+ 腹围（最凸处）</li>
+    <li><b>不看每日波动：</b>哺乳期水分波动大，每周一次即可</li>
+  </ul>
+
+  <div class="note">
+    <b>📌 奶量守护底线：</b>只要宝宝尿量 ≥ 6 次/天、体重增长正常、精神好，就说明奶量充足，可继续执行计划。一旦奶量明显下降，<b>立即停止减脂、增加 300-500 kcal 热量</b>，以奶量优先。
+  </div>
+</section>
+
+<!-- 附加板块1：一周食谱 -->
+<section>
+  <h2>🌟 附加一：一周 7 天参考食谱</h2>
+  <table class="week-table">
+    <tr>
+      <th style="width:10%;">日</th>
+      <th style="width:22%;">早餐</th>
+      <th style="width:16%;">加餐</th>
+      <th style="width:24%;">午餐</th>
+      <th style="width:16%;">加餐</th>
+      <th>晚餐</th>
+    </tr>
+    <tr>
+      <td>周一</td>
+      <td>燕麦粥 + 水煮蛋 + 牛奶 + 菠菜</td>
+      <td>苹果 + 核桃</td>
+      <td>糙米饭 + 鸡胸 + 西兰花 + 鲫鱼汤</td>
+      <td>豆浆 + 全麦面包</td>
+      <td>红薯 + 虾仁蒸蛋 + 木耳菜</td>
+    </tr>
+    <tr>
+      <td>周二</td>
+      <td>全麦面包 + 煎蛋 + 豆浆 + 番茄</td>
+      <td>猕猴桃 + 杏仁</td>
+      <td>小米饭 + 瘦牛肉 + 海带豆腐汤</td>
+      <td>酸奶 + 蓝莓</td>
+      <td>玉米 + 清蒸鱼 + 蒜蓉菠菜</td>
+    </tr>
+    <tr>
+      <td>周三</td>
+      <td>紫薯 + 鸡蛋 + 牛奶 + 黄瓜</td>
+      <td>火龙果 + 腰果</td>
+      <td>藜麦饭 + 鸡腿肉去皮 + 冬瓜汤</td>
+      <td>牛奶 + 燕麦饼干</td>
+      <td>杂粮粥 + 豆腐煲 + 西红柿</td>
+    </tr>
+    <tr>
+      <td>周四</td>
+      <td>玉米 + 茶叶蛋 + 豆浆 + 生菜</td>
+      <td>橙子 + 核桃</td>
+      <td>糙米饭 + 三文鱼 + 胡萝卜 + 菌菇汤</td>
+      <td>酸奶 + 苹果</td>
+      <td>红薯 + 鸡丝凉菜 + 小白菜</td>
+    </tr>
+    <tr>
+      <td>周五</td>
+      <td>小米粥 + 蒸蛋 + 牛奶 + 西兰花</td>
+      <td>木瓜 + 杏仁</td>
+      <td>燕麦饭 + 瘦猪肉 + 木耳 + 番茄蛋汤</td>
+      <td>豆浆 + 全麦面包</td>
+      <td>玉米 + 虾 + 海带丝</td>
+    </tr>
+    <tr>
+      <td>周六</td>
+      <td>全麦三明治（蛋+生菜）+ 牛奶</td>
+      <td>蓝莓 + 松子</td>
+      <td>糙米饭 + 鸡胸 + 西葫芦 + 鲫鱼汤</td>
+      <td>酸奶 + 火龙果</td>
+      <td>红薯 + 蒸蛋 + 菠菜</td>
+    </tr>
+    <tr>
+      <td>周日</td>
+      <td>燕麦 + 鸡蛋 + 豆浆 + 番茄</td>
+      <td>苹果 + 腰果</td>
+      <td>小米饭 + 牛肉 + 山药 + 蘑菇汤</td>
+      <td>牛奶 + 燕麦饼干</td>
+      <td>玉米 + 清蒸鱼 + 油菜</td>
+    </tr>
+  </table>
+  <p style="font-size:12px;color:var(--gray);">📌 每餐主食约 1 拳、蛋白 1 掌、蔬菜 2 拳；汤统一去浮油；可按口味替换同类食材。</p>
+</section>
+
+<!-- 附加板块2：下奶食物 -->
+<section>
+  <h2>🌟 附加二：下奶食物清单</h2>
+  <div class="grid-2">
+    <div class="food-card">
+      <h4>🥩 高蛋白类</h4>
+      <div class="food-list">
+        <span>鲫鱼</span><span>鲤鱼</span><span>虾</span><span>鸡蛋</span><span>瘦肉</span><span>牛肉</span><span>豆腐</span><span>牛奶</span><span>黄豆</span>
+      </div>
+    </div>
+    <div class="food-card">
+      <h4>🥣 汤水类</h4>
+      <div class="food-list">
+        <span>鲫鱼豆腐汤</span><span>通草猪蹄汤</span><span>酒酿蛋花</span><span>无花果瘦肉汤</span><span>红豆汤</span><span>红枣枸杞水</span><span>丝瓜汤</span>
+      </div>
+    </div>
+    <div class="food-card">
+      <h4>🌾 主食杂粮</h4>
+      <div class="food-list">
+        <span>小米</span><span>燕麦</span><span>红糖小米粥</span><span>山药</span><span>红枣糯米</span><span>花生</span>
+      </div>
+    </div>
+    <div class="food-card">
+      <h4>🥝 果蔬类</h4>
+      <div class="food-list">
+        <span>木瓜</span><span>无花果</span><span>丝瓜</span><span>莲藕</span><span>莴笋</span><span>豌豆</span><span>金针菇</span>
+      </div>
+    </div>
+  </div>
+  <div class="note note-green">
+    <b>💡 下奶三要素：</b>① 水分充足（2500ml+/天）② 蛋白质充足（80-100g/天）③ 频繁亲喂（8-12 次/天）。食物只是辅助，<b>亲喂刺激才是下奶的根本</b>。
+  </div>
+</section>
+
+<!-- 附加板块3：回奶避雷 -->
+<section>
+  <h2>🌟 附加三：回奶食物避雷清单</h2>
+  <table>
+    <tr>
+      <th style="width:18%;">食物</th>
+      <th style="width:14%;">风险等级</th>
+      <th>说明</th>
+    </tr>
+    <tr><td><b>韭菜</b></td><td><span class="tag tag-no">高</span></td><td>传统回奶食物，大量食用明显影响奶量</td></tr>
+    <tr><td><b>麦芽 / 大麦茶</b></td><td><span class="tag tag-no">高</span></td><td>含麦角胺，临床用于回奶，坚决避免</td></tr>
+    <tr><td><b>花椒 / 花椒水</b></td><td><span class="tag tag-no">高</span></td><td>大量摄入可能抑制泌乳</td></tr>
+    <tr><td><b>人参</b></td><td><span class="tag tag-warn">中</span></td><td>大补之物，哺乳期可能抑制泌乳</td></tr>
+    <tr><td><b>山楂（大量）</b></td><td><span class="tag tag-warn">中</span></td><td>少量调味无妨，大量可能回奶</td></tr>
+    <tr><td><b>苦瓜（大量）</b></td><td><span class="tag tag-warn">中</span></td><td>性寒，大量食用影响奶量</td></tr>
+    <tr><td><b>薄荷 / 薄荷茶</b></td><td><span class="tag tag-warn">中</span></td><td>薄荷醇可能减少乳汁</td></tr>
+    <tr><td><b>菊花茶（浓）</b></td><td><span class="tag tag-warn">中</span></td><td>性寒，浓茶大量饮用需谨慎</td></tr>
+    <tr><td><b>咖啡因（>200mg）</b></td><td><span class="tag tag-warn">中</span></td><td>影响宝宝睡眠，间接干扰喂养节奏</td></tr>
+    <tr><td><b>酒精</b></td><td><span class="tag tag-no">高</span></td><td>进入乳汁影响宝宝发育，严禁</td></tr>
+    <tr><td><b>巧克力（大量）</b></td><td><span class="tag tag-warn">中</span></td><td>含可可碱，大量影响宝宝</td></tr>
+    <tr><td><b>竹笋（大量）</b></td><td><span class="tag tag-warn">低-中</span></td><td>性寒且影响钙吸收，少量可</td></tr>
+  </table>
+  <div class="note note-red">
+    <b>⚠️ 重要提醒：</b>以上食物<b>偶尔少量调味通常无碍</b>，避免<b>连续、大量</b>食用即可。个体差异大，若发现奶量骤减，立即停食可疑食物并增加亲喂频率。
+  </div>
+</section>
+
+<div class="footer">
+  <p>💗 哺乳期减脂 · 奶量优先 · 温和掉秤 · 做健康妈妈</p>
+  <p>本计划表仅供参考，执行前请结合个人身体状况并遵医嘱。如有不适请立即停止并咨询医生。</p>
+</div>
+
+</body>
+</html>
