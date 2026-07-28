@@ -345,10 +345,11 @@
       <div class="card">
         <div class="todo-header"><span class="icon">✓</span>今日待办清单</div>
         <div class="todo-list" id="todoList">
+          <div class="todo-item" onclick="toggleTodo(this)"><div class="todo-check">✓</div><div class="todo-text">英语学习</div><div class="todo-del" onclick="deleteTodo(event,this)">×</div></div>
+          <div class="todo-item" onclick="toggleTodo(this)"><div class="todo-check">✓</div><div class="todo-text">缅甸语学习</div><div class="todo-del" onclick="deleteTodo(event,this)">×</div></div>
+          <div class="todo-item" onclick="toggleTodo(this)"><div class="todo-check">✓</div><div class="todo-text">初级会计</div><div class="todo-del" onclick="deleteTodo(event,this)">×</div></div>
           <div class="todo-item" onclick="toggleTodo(this)"><div class="todo-check">✓</div><div class="todo-text">理财入门基础知识</div><div class="todo-del" onclick="deleteTodo(event,this)">×</div></div>
-          <div class="todo-item done" onclick="toggleTodo(this)"><div class="todo-check">✓</div><div class="todo-text">新闻阅读</div><div class="todo-del" onclick="deleteTodo(event,this)">×</div></div>
           <div class="todo-item" onclick="toggleTodo(this)"><div class="todo-check">✓</div><div class="todo-text">新闻阅读</div><div class="todo-del" onclick="deleteTodo(event,this)">×</div></div>
-          <div class="todo-item done" onclick="toggleTodo(this)"><div class="todo-check">✓</div><div class="todo-text">缅甸语学习</div><div class="todo-del" onclick="deleteTodo(event,this)">×</div></div>
         </div>
         <div class="add-row"><input class="add-input" id="newTask" placeholder="添加新任务…" onkeydown="if(event.key==='Enter')addTask()"><button class="add-btn" onclick="addTask()">添加</button></div>
       </div>
@@ -744,7 +745,18 @@ function loadDaily(){
   const s=localStorage.getItem('daily_'+new Date().toISOString().slice(0,10));
   if(!s)return updateRing();
   const t=JSON.parse(s),list=document.getElementById('todoList');list.innerHTML='';
-  t.forEach(x=>{const d=document.createElement('div');d.className='todo-item'+(x.done?' done':'');d.onclick=function(){toggleTodo(this);};d.innerHTML='<div class="todo-check">✓</div><div class="todo-text">'+x.text+'</div><div class="todo-del" onclick="deleteTodo(event,this)">×</div>';list.appendChild(d);});
+  /* 优先项固定置顶：英语学习 / 缅甸语学习 / 初级会计 */
+  const priority=['英语学习','缅甸语学习','初级会计'];
+  const map={};t.forEach(x=>{if(!map[x.text])map[x.text]=x;});
+  const result=[];
+  priority.forEach(p=>{result.push(map[p]||{text:p,done:false});});
+  t.forEach(x=>{if(!priority.includes(x.text))result.push(x);});
+  result.forEach(x=>{
+    const d=document.createElement('div');d.className='todo-item'+(x.done?' done':'');
+    d.onclick=function(){toggleTodo(this);};
+    d.innerHTML='<div class="todo-check">✓</div><div class="todo-text">'+x.text+'</div><div class="todo-del" onclick="deleteTodo(event,this)">×</div>';
+    list.appendChild(d);
+  });
   updateRing();
 }
 
