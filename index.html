@@ -197,7 +197,7 @@
   }
 
   /* ====== 缅语字母网格 ====== */
-  .alpha-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(56px,1fr));gap:8px;margin-top:10px;}
+  .alpha-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:10px;}
   .alpha-card{
     background:rgba(255,255,255,.8);border:2px solid rgba(200,180,160,.25);border-radius:14px;
     padding:10px 4px;text-align:center;cursor:pointer;transition:all .18s;
@@ -209,6 +209,13 @@
   /* ====== 词汇行 ====== */
   .vocab-row{display:flex;align-items:center;gap:10px;padding:11px 0;border-bottom:1.5px dashed rgba(200,180,160,.25);}
   .vocab-row:last-child{border-bottom:none;}
+
+  /* ====== 会话行（缅语 / 拼音 / 中文 三行） ====== */
+  .conv-row{padding:13px 6px;border-bottom:1.5px dashed rgba(200,180,160,.25);}
+  .conv-row:last-child{border-bottom:none;}
+  .conv-my{font-size:18px;font-weight:700;color:var(--teal-num);line-height:1.4;}
+  .conv-py{font-size:13px;color:var(--text-light);margin-top:4px;font-style:italic;letter-spacing:.3px;}
+  .conv-cn{font-size:13.5px;color:var(--text);margin-top:3px;}
   .vocab-my{font-size:19px;font-weight:700;color:var(--orange-num);min-width:60px;}
   .vocab-py{font-size:11px;color:var(--text-light);}
   .vocab-cn{font-size:13.5px;flex:1;}
@@ -359,10 +366,6 @@
         <div class="ring-sub">已完成 <b id="myDone">0</b>/<b id="myTotal">37</b> 项 · 目标 <b>80%</b></div>
       </div>
       <div class="card">
-        <div class="todo-header"><span class="icon" style="background:var(--teal)">က</span>辅音字母（33个 · 点击标记已掌握）</div>
-        <div class="alpha-grid" id="alphaGrid"></div>
-      </div>
-      <div class="card">
         <div class="todo-header"><span class="icon" style="background:var(--teal)">✓</span>今日学习打卡</div>
         <div id="myCheckList">
           <div class="check-row" onclick="toggleMyCheck(this)"><div class="dot"></div><div class="txt">10分钟 · 复习昨日字母（听写+朗读）</div></div>
@@ -373,12 +376,12 @@
       </div>
       <div class="card">
         <div class="todo-header"><span class="icon" style="background:var(--teal)">💬</span>日常会话句型</div>
-        <div class="vocab-row"><div class="vocab-my">မင်္ဂလာပါ</div><div class="vocab-py">min ga la ba</div><div class="vocab-cn">你好</div></div>
-        <div class="vocab-row"><div class="vocab-my">ကျေးဇူးတင်ပါတယ်</div><div class="vocab-py">kyaay zuu tin ba de</div><div class="vocab-cn">谢谢</div></div>
-        <div class="vocab-row"><div class="vocab-my">ဟုတ်ကဲ့</div><div class="vocab-py">ho ke</div><div class="vocab-cn">好的 / 是</div></div>
-        <div class="vocab-row"><div class="vocab-my">မဟုတ်ဘူး</div><div class="vocab-py">ma ho bu</div><div class="vocab-cn">不是</div></div>
-        <div class="vocab-row"><div class="vocab-my">နာမည်ဘယ်လိုခေါ်လဲ</div><div class="vocab-py">na meh be lo gau leh</div><div class="vocab-cn">你叫什么名字？</div></div>
-        <div class="vocab-row"><div class="vocab-my">ကျွန်မနာမည်က…</div><div class="vocab-py">kyaun ma na meh ka…</div><div class="vocab-cn">我的名字是…</div></div>
+        <div class="conv-row"><div class="conv-my">မင်္ဂလာပါ</div><div class="conv-py">min ga la ba</div><div class="conv-cn">你好</div></div>
+        <div class="conv-row"><div class="conv-my">ကျေးဇူးတင်ပါတယ်</div><div class="conv-py">kyaay zuu tin ba de</div><div class="conv-cn">谢谢</div></div>
+        <div class="conv-row"><div class="conv-my">ဟုတ်ကဲ့</div><div class="conv-py">ho ke</div><div class="conv-cn">好的 / 是</div></div>
+        <div class="conv-row"><div class="conv-my">မဟုတ်ဘူး</div><div class="conv-py">ma ho bu</div><div class="conv-cn">不是</div></div>
+        <div class="conv-row"><div class="conv-my">နာမည်ဘယ်လိုခေါ်လဲ</div><div class="conv-py">na meh be lo gau leh</div><div class="conv-cn">你叫什么名字？</div></div>
+        <div class="conv-row"><div class="conv-my">ကျွန်မနာမည်က…</div><div class="conv-py">kyaun ma na meh ka…</div><div class="conv-cn">我的名字是…</div></div>
       </div>
       <div class="card">
         <div class="todo-header"><span class="icon" style="background:var(--teal)">📚</span>本周高频词汇</div>
@@ -403,6 +406,10 @@
           <tr><td><b>第3周</b></td><td>日常问候+自我介绍句型</td><td>能进行简单自我介绍</td></tr>
           <tr><td><b>第4周</b></td><td>数字+时间+购物场景</td><td>能完成基础购物对话</td></tr>
         </table>
+      </div>
+      <div class="card">
+        <div class="todo-header"><span class="icon" style="background:var(--teal)">က</span>辅音字母（33个 · 点击标记已掌握）</div>
+        <div class="alpha-grid" id="alphaGrid"></div>
       </div>
       <div class="bottom-btns">
         <button class="btn" onclick="resetMyanmar()">重置</button>
