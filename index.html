@@ -240,6 +240,24 @@
   tr:last-child td{border-bottom:none;}
 
   /* ====== 响应式 ====== */
+  /* ====== 美剧台词（英文一行 / 中文一行） ====== */
+  .quote-row{padding:14px 6px;border-bottom:1.5px dashed rgba(200,180,160,.25);}
+  .quote-row:last-child{border-bottom:none;}
+  .quote-en{font-size:16px;font-weight:600;color:var(--text);line-height:1.5;letter-spacing:.3px;}
+  .quote-cn{font-size:13px;color:var(--text-light);margin-top:6px;padding-left:2px;line-height:1.5;}
+
+  /* ====== 导航栏可隐藏 + 模块加宽 ====== */
+  .sidebar{
+    transition:width .3s ease,opacity .3s ease,margin .3s ease;
+    overflow:hidden;white-space:nowrap;
+  }
+  .sidebar .nav-label,.sidebar .nav-item{transition:opacity .2s ease;}
+  body.sidebar-hidden .sidebar{
+    width:0 !important;padding-left:0;padding-right:0;margin-left:0;
+    opacity:0;pointer-events:none;border-right:none;
+  }
+  body.sidebar-hidden .content{padding-left:20px;padding-right:20px;}
+
   @media(max-width:768px){
     .sidebar{width:64px;}
     .nav-item{width:54px;padding:8px 3px;border-radius:14px;}
@@ -255,7 +273,7 @@
 <body>
 
 <div class="header">
-  <div class="back">&lt;</div>
+  <div class="back" onclick="toggleSidebar()" title="展开 / 收起导航">☰</div>
   <div class="title">野鹿工作台</div>
   <div class="badge"><span class="badge-icon">🏅</span><span>1</span></div>
 </div>
@@ -415,29 +433,29 @@
       </div>
 
       <div class="card">
-        <div class="todo-header"><span class="icon" style="background:var(--blue)">📚</span>今日单词（10个）</div>
+        <div class="todo-header"><span class="icon" style="background:var(--blue)">📚</span>今日单词（日常基础 10个）</div>
         <table>
-          <tr><th style="width:10%;">#</th><th>单词</th><th>词性</th><th>释义</th></tr>
-          <tr><td>1</td><td><b>approach</b></td><td>v./n.</td><td>接近；方法</td></tr>
-          <tr><td>2</td><td><b>establish</b></td><td>v.</td><td>建立；确立</td></tr>
-          <tr><td>3</td><td><b>sufficient</b></td><td>adj.</td><td>足够的</td></tr>
-          <tr><td>4</td><td><b>maintain</b></td><td>v.</td><td>维持；保养</td></tr>
-          <tr><td>5</td><td><b>consequence</b></td><td>n.</td><td>结果；后果</td></tr>
-          <tr><td>6</td><td><b>relevant</b></td><td>adj.</td><td>相关的</td></tr>
-          <tr><td>7</td><td><b>assume</b></td><td>v.</td><td>假设；承担</td></tr>
-          <tr><td>8</td><td><b>decline</b></td><td>v./n.</td><td>下降；拒绝</td></tr>
-          <tr><td>9</td><td><b>obvious</b></td><td>adj.</td><td>明显的</td></tr>
-          <tr><td>10</td><td><b>identify</b></td><td>v.</td><td>识别；确认</td></tr>
+          <tr><th style="width:8%;">#</th><th>单词</th><th>词性</th><th>释义</th></tr>
+          <tr><td>1</td><td><b>hello</b></td><td>int.</td><td>你好</td></tr>
+          <tr><td>2</td><td><b>water</b></td><td>n.</td><td>水</td></tr>
+          <tr><td>3</td><td><b>eat</b></td><td>v.</td><td>吃</td></tr>
+          <tr><td>4</td><td><b>home</b></td><td>n.</td><td>家</td></tr>
+          <tr><td>5</td><td><b>time</b></td><td>n.</td><td>时间</td></tr>
+          <tr><td>6</td><td><b>friend</b></td><td>n.</td><td>朋友</td></tr>
+          <tr><td>7</td><td><b>good</b></td><td>adj.</td><td>好的</td></tr>
+          <tr><td>8</td><td><b>help</b></td><td>v.</td><td>帮助</td></tr>
+          <tr><td>9</td><td><b>go</b></td><td>v.</td><td>去；走</td></tr>
+          <tr><td>10</td><td><b>work</b></td><td>n./v.</td><td>工作</td></tr>
         </table>
       </div>
 
       <div class="card">
-        <div class="todo-header"><span class="icon" style="background:var(--blue)">💬</span>今日句型（5句）</div>
-        <div class="vocab-row"><div class="vocab-my" style="color:var(--blue);min-width:auto;font-size:14px;">①</div><div class="vocab-cn">I'm not sure if that's the right approach.</div><div class="vocab-py" style="min-width:auto;">我不确定那是不是正确的方法。</div></div>
-        <div class="vocab-row"><div class="vocab-my" style="color:var(--blue);min-width:auto;font-size:14px;">②</div><div class="vocab-cn">Could you help me figure this out?</div><div class="vocab-py" style="min-width:auto;">你能帮我把这个弄清楚吗？</div></div>
-        <div class="vocab-row"><div class="vocab-my" style="color:var(--blue);min-width:auto;font-size:14px;">③</div><div class="vocab-cn">It makes a huge difference in the long run.</div><div class="vocab-py" style="min-width:auto;">从长远来看这会产生巨大的影响。</div></div>
-        <div class="vocab-row"><div class="vocab-my" style="color:var(--blue);min-width:auto;font-size:14px;">④</div><div class="vocab-cn">That's exactly what I was thinking.</div><div class="vocab-py" style="min-width:auto;">这正是我在想的。</div></div>
-        <div class="vocab-row"><div class="vocab-my" style="color:var(--blue);min-width:auto;font-size:14px;">⑤</div><div class="vocab-cn">I'd like to get your opinion on this.</div><div class="vocab-py" style="min-width:auto;">我想听听你对这件事的看法。</div></div>
+        <div class="todo-header"><span class="icon" style="background:var(--blue)">💬</span>今日句型（美剧台词 5句）</div>
+        <div class="quote-row"><div class="quote-en">"Friends don't lie."</div><div class="quote-cn">—— 朋友之间不说谎。《怪奇物语》Stranger Things</div></div>
+        <div class="quote-row"><div class="quote-en">"Winter is coming."</div><div class="quote-cn">—— 凛冬将至。《权力的游戏》Game of Thrones</div></div>
+        <div class="quote-row"><div class="quote-en">"I am the one who knocks."</div><div class="quote-cn">—— 敲门的人，是我。《绝命毒师》Breaking Bad</div></div>
+        <div class="quote-row"><div class="quote-en">"We were on a break!"</div><div class="quote-cn">—— 我们当时分手了！《老友记》Friends</div></div>
+        <div class="quote-row"><div class="quote-en">"Bazinga!"</div><div class="quote-cn">—— 逗你玩！（标志性恶作剧用语）《生活大爆炸》The Big Bang Theory</div></div>
       </div>
 
       <div class="card">
@@ -671,6 +689,13 @@ function switchTab(tab,el){
   document.querySelectorAll('.module-content').forEach(m=>m.classList.remove('active'));
   document.getElementById('tab-'+tab).classList.add('active');
 }
+
+// ===== 导航栏隐藏 / 展开 =====
+function toggleSidebar(){
+  document.body.classList.toggle('sidebar-hidden');
+  localStorage.setItem('sidebarHidden',document.body.classList.contains('sidebar-hidden'));
+}
+if(localStorage.getItem('sidebarHidden')==='true'){document.body.classList.add('sidebar-hidden');}
 
 // ===== 每日任务 =====
 function updateRing(){
