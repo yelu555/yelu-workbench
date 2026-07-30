@@ -31,17 +31,20 @@
   }
   *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
   html{scrollbar-width:thin;scrollbar-color:rgba(200,180,160,.3) transparent;}
+  html,body{height:100%;}
   body{
     font-family:var(--body-font);
     background:var(--bg);
     color:var(--text);line-height:1.65;
-    min-height:100vh;display:flex;flex-direction:column;
+    height:100vh;height:100dvh;overflow:hidden;
+    display:flex;flex-direction:column;
     -webkit-font-smoothing:antialiased;
   }
 
   /* ====== 顶部栏 ====== */
   .header{
     display:flex;align-items:center;justify-content:space-between;
+    flex-shrink:0;
     padding:14px 20px;background:transparent;
     position:relative;z-index:10;
   }
@@ -65,7 +68,7 @@
   .badge-icon{font-size:14px;}
 
   /* ====== 主布局 ====== */
-  .main{display:flex;flex:1;overflow:hidden;}
+  .main{display:flex;flex:1;min-height:0;overflow:hidden;}
   .sidebar{
     width:80px;background:rgba(255,255,255,.55);
     flex-shrink:0;display:flex;flex-direction:column;align-items:center;
