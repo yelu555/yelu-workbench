@@ -220,6 +220,15 @@
   .conv-py{font-size:13px;color:var(--text-light);margin-top:4px;font-style:italic;letter-spacing:.3px;}
   .conv-cn{font-size:13.5px;color:var(--text);margin-top:3px;}
 
+  /* ====== 想法记录（日记） ====== */
+  .nav-arrow{width:38px;height:38px;border-radius:50%;border:none;background:var(--yellow-light);color:var(--yellow-num);font-size:22px;font-weight:700;cursor:pointer;flex-shrink:0;transition:all .2s;}
+  .nav-arrow:hover{transform:scale(1.08);background:var(--yellow-num);color:#fff;}
+  .idea-date{border:none;background:transparent;font-family:var(--cute-font);font-size:18px;color:var(--text);text-align:center;outline:none;}
+  .idea-area{width:100%;min-height:180px;resize:vertical;border:2px solid rgba(200,180,160,.3);border-radius:16px;padding:14px;font-size:14px;line-height:1.7;font-family:var(--body-font);color:var(--text);background:rgba(255,255,255,.8);outline:none;margin-top:4px;}
+  .idea-area:focus{border-color:var(--yellow-num);box-shadow:0 0 0 3px var(--yellow-light);}
+  .idea-area:disabled{background:var(--bg);color:var(--text-light);cursor:default;}
+  .idea-lock{text-align:center;font-size:13px;color:var(--text-light);padding:14px;background:var(--bg);border-radius:14px;margin-top:4px;}
+
   /* ====== 注意事项行 ====== */
   .tip-item{padding:12px 14px;border-bottom:1.5px dashed rgba(200,180,160,.25);font-size:14px;line-height:1.6;}
   .tip-item:last-child{border-bottom:none;}
@@ -697,8 +706,30 @@
       </div>
     </div>
     <div class="module-content" id="tab-idea">
-      <div class="page-header"><h2>想法记录</h2><div class="sub">灵感与创意收集</div></div>
-      <div class="card"><p style="font-size:14px;color:var(--text-light);text-align:center;padding:40px;">💡 想法记录模块建设中…</p></div>
+      <div class="page-header"><h2>想法记录</h2><div class="sub">日记本 · 按日期记录 · 过往归档不可改</div></div>
+
+      <!-- 日期导航 -->
+      <div class="card" style="padding:14px 16px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;">
+          <button class="nav-arrow" onclick="ideaStep(-1)">‹</button>
+          <div style="text-align:center;flex:1;">
+            <input type="date" id="ideaDate" class="idea-date" onchange="ideaGoto(this.value)" max="">
+            <div id="ideaTag" style="font-size:12px;color:var(--text-light);margin-top:4px;"></div>
+          </div>
+          <button class="nav-arrow" onclick="ideaStep(1)">›</button>
+        </div>
+      </div>
+
+      <!-- 日记内容 -->
+      <div class="card">
+        <div class="todo-header"><span class="icon" style="background:var(--yellow-num)">📔</span><span id="ideaTitle">今日日记</span></div>
+        <textarea id="ideaText" class="idea-area" placeholder="写下今天的想法、灵感或复盘…"></textarea>
+        <div id="ideaLock" class="idea-lock" style="display:none;">🔒 该日记已归档，内容不可修改</div>
+        <div class="bottom-btns" id="ideaBtns">
+          <button class="btn" onclick="ideaClear()">清空</button>
+          <button class="btn btn-primary" onclick="ideaSave()">保存日记</button>
+        </div>
+      </div>
     </div>
 
   </div>
@@ -812,6 +843,61 @@ function updateMealCount(){
   });
   updateMealCount();
 })();
+
+// ===== 想法记录（日记） =====
+function ideaFmt(dt){
+  const y=dt.getFullYear(),m=String(dt.getMonth()+1).padStart(2,'0'),d=String(dt.getDate()).padStart(2,'0');
+  return y+'-'+m+'-'+d;
+}
+function ideaToday(){return ideaFmt(new Date());}
+function ideaKey(d){return 'idea_'+d;}
+let ideaCurrent=ideaToday();
+function ideaRender(){
+  const today=ideaToday(),d=ideaCurrent;
+  const input=document.getElementById('ideaDate');
+  input.value=d;input.max=today;
+  const locked=d<today;
+  const text=localStorage.getItem(ideaKey(d))||'';
+  const area=document.getElementById('ideaText'),tag=document.getElementById('ideaTag'),
+        title=document.getElementById('ideaTitle'),lock=document.getElementById('ideaLock'),btns=document.getElementById('ideaBtns');
+  if(d===today){title.textContent='今日日记';tag.textContent='今天 · 可编辑';}
+  else{
+    const wd=['日','一','二','三','四','五','六'][new Date(d+'T00:00:00').getDay()];
+    title.textContent=d+' 日记';tag.textContent='星期'+wd+(locked?' · 已归档':'');
+  }
+  area.value=text;
+  if(locked){
+    area.disabled=true;
+    lock.style.display=text?'block':'none';
+    btns.style.display='none';
+  }else{
+    area.disabled=false;
+    lock.style.display='none';
+    btns.style.display='flex';
+  }
+}
+function ideaSave(){
+  if(ideaCurrent<ideaToday())return alert('过往日记已归档，不可修改');
+  localStorage.setItem(ideaKey(ideaCurrent),document.getElementById('ideaText').value);
+  document.getElementById('ideaTag').textContent='已保存 ✓';
+}
+function ideaClear(){
+  if(ideaCurrent<ideaToday())return;
+  if(!confirm('确定清空今日日记吗？'))return;
+  localStorage.removeItem(ideaKey(ideaCurrent));
+  document.getElementById('ideaText').value='';
+}
+function ideaStep(delta){
+  const d=new Date(ideaCurrent+'T00:00:00');d.setDate(d.getDate()+delta);
+  const max=new Date(ideaToday()+'T00:00:00');if(d>max)d.setTime(max.getTime());
+  ideaCurrent=ideaFmt(d);ideaRender();
+}
+function ideaGoto(v){
+  if(!v)return;
+  if(v>ideaToday())v=ideaToday();
+  ideaCurrent=v;ideaRender();
+}
+(function initIdea(){ideaRender();})();
 
 // ===== 缅甸语学习 =====
 const consonants=[
