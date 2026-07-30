@@ -146,7 +146,7 @@
   .todo-item:nth-child(1)::after{content:'🌸';}
   .todo-item:nth-child(2)::after{content:'🌿';}
   .todo-item:nth-child(3)::after{content:'☁️';}
-  .todo-item:nth-child(4)::after{content:'💚';}
+  .todo-item:nth-child(4)::after{content:'';}
   .todo-item:nth-child(5)::after{content:'✨';}
   .todo-item:nth-child(n+6)::after{content:'🌈';}
   .todo-item:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(150,130,110,.1);}
@@ -551,13 +551,24 @@
 
       <div class="card">
         <div class="todo-header"><span class="icon" style="background:var(--purple)">📅</span>备考总体规划（2026.7 → 2027.5）</div>
-        <table>
-          <tr><th>阶段</th><th>时间</th><th>重点任务</th><th>每日时长</th></tr>
-          <tr><td><b>基础阶段</b></td><td>7月-11月（4个月）</td><td>《初级会计实务》+《经济法基础》第一轮系统学完</td><td>30-45min</td></tr>
-          <tr><td><b>强化阶段</b></td><td>12月-2月（3个月）</td><td>第二轮复习，重点章节攻克，大量刷题</td><td>45-60min</td></tr>
-          <tr><td><b>冲刺阶段</b></td><td>3月-4月（2个月）</td><td>真题模拟，查漏补缺，背诵高频考点</td><td>60-90min</td></tr>
-          <tr><td><b>考前</b></td><td>5月</td><td>错题回顾，模拟考，调整状态</td><td>灵活</td></tr>
-        </table>
+        <div style="display:grid;grid-template-columns:1fr;gap:10px;">
+          <div style="background:var(--purple-light);padding:12px 14px;border-radius:12px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;"><b>基础阶段</b><span style="font-size:12px;color:var(--text-light);">7月-11月 · 4个月</span></div>
+            <div style="font-size:13px;">《初级会计实务》+《经济法基础》第一轮系统学完 · 每日 30-45min</div>
+          </div>
+          <div style="background:var(--purple-light);padding:12px 14px;border-radius:12px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;"><b>强化阶段</b><span style="font-size:12px;color:var(--text-light);">12月-2月 · 3个月</span></div>
+            <div style="font-size:13px;">第二轮复习，重点章节攻克，大量刷题 · 每日 45-60min</div>
+          </div>
+          <div style="background:var(--purple-light);padding:12px 14px;border-radius:12px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;"><b>冲刺阶段</b><span style="font-size:12px;color:var(--text-light);">3月-4月 · 2个月</span></div>
+            <div style="font-size:13px;">真题模拟，查漏补缺，背诵高频考点 · 每日 60-90min</div>
+          </div>
+          <div style="background:var(--purple-light);padding:12px 14px;border-radius:12px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;"><b>考前</b><span style="font-size:12px;color:var(--text-light);">5月</span></div>
+            <div style="font-size:13px;">错题回顾，模拟考，调整状态 · 时间灵活</div>
+          </div>
+        </div>
       </div>
 
       <div class="card">
