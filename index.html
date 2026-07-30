@@ -14,18 +14,19 @@
 <link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&family=Baloo+2:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    /* 暖奶油底 */
-    --bg:#FFF8ED;
-    --text:#5D4E47;--text-light:#A89B94;--border:rgba(200,180,160,.25);
-    /* 马卡龙色板（参考图片：粉/黄/蓝） */
-    --pink-bg:#FFE8EC;--pink-num:#FF8FA3;--pink-border:#FFCDD8;
-    --yellow-bg:#FFF5D7;--yellow-num:#F5B942;--yellow-border:#FFE082;
-    --blue-bg:#E8F2FE;--blue-num:#7BB3E0;--blue-border:#BDD4EF;
-    --green-bg:#E8F8EF;--green-num:#6BC99A;--green-border:#B5E8CD;
-    --purple-bg:#F3EBFB;--purple-num:#A78BE0;--purple-border:#D4C4F0;
-    --teal-bg:#E2F6F4;--teal-num:#5DC4BA;--teal-border:#A8DDD8;
-    --coral-bg:#FFE8E0;--coral-num:#FF9068;--coral-border:#FFCCB8;
-    --orange-num:#FF8FAB;--red-num:#FF7088;
+    /* 米黄复古纸张底 */
+    --bg:#F1E3C6;
+    --paper-card:#FBF3DF;
+    --text:#6E5C4B;--text-light:#A8957C;--border:rgba(150,120,80,.20);
+    /* 低饱和马卡龙（水彩质感） */
+    --pink-bg:#F8DEE2;--pink-num:#DD97A4;--pink-border:#ECCAD0;
+    --yellow-bg:#F6EAC6;--yellow-num:#D2A85E;--yellow-border:#EAD7AC;
+    --blue-bg:#DCE9F3;--blue-num:#87AFD2;--blue-border:#C2D5E7;
+    --green-bg:#DDEBE1;--green-num:#88BC97;--green-border:#C3DEC9;
+    --purple-bg:#E8DFF1;--purple-num:#A18FCB;--purple-border:#D2C3E4;
+    --teal-bg:#D7EAE7;--teal-num:#79B2AA;--teal-border:#BBDBD5;
+    --coral-bg:#F8DCD0;--coral-num:#DDA086;--coral-border:#EBCCBB;
+    --orange-num:#E0A079;--red-num:#DA8A8A;
     --cute-font:"ZCOOL KuaiLe","Baloo 2",system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
     --body-font:"ZCOOL KuaiLe","Baloo 2",system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
   }
@@ -40,60 +41,69 @@
     display:flex;flex-direction:column;
     -webkit-font-smoothing:antialiased;
   }
+  /* 复古纸张水彩纹理 + 暖调自然光 */
+  body::before{
+    content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+    mix-blend-mode:multiply;opacity:.8;
+  }
+  body::after{
+    content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;
+    background:radial-gradient(120% 80% at 50% -10%,rgba(255,243,214,.65),rgba(241,227,198,0) 60%);
+  }
 
   /* ====== 顶部栏 ====== */
   .header{
     display:flex;align-items:center;justify-content:space-between;
     flex-shrink:0;
-    padding:14px 20px;background:transparent;
+    padding:14px 18px;background:transparent;
     position:relative;z-index:10;
   }
   .header .back{
-    font-size:22px;color:var(--text);cursor:pointer;
-    width:40px;height:40px;display:flex;align-items:center;justify-content:center;
-    background:rgba(255,255,255,.7);border-radius:50%;
-    transition:all .2s;font-weight:300;
+    position:relative;width:44px;height:44px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;cursor:pointer;
+    background:rgba(251,243,223,.9);border:2px solid var(--yellow-border);
+    box-shadow:0 2px 6px rgba(150,120,80,.12);transition:all .2s;
   }
-  .header .back:hover{transform:scale(1.06);background:rgba(255,255,255,.95);}
+  .header .back:hover{transform:scale(1.06);}
+  .header .back-flower{position:absolute;font-size:26px;opacity:.4;line-height:1;}
+  .header .back-ico{position:relative;font-size:18px;color:var(--text);}
   .header .title{
     font-size:21px;font-weight:700;font-family:var(--cute-font);
     color:var(--text);letter-spacing:2px;
   }
-  .header .badge{
-    display:flex;align-items:center;gap:5px;
-    background:var(--green-bg);padding:6px 14px;border-radius:20px;
-    font-size:13px;color:var(--green-num);font-weight:700;
-    border:2px dashed var(--green-border);
+  .header-ring{
+    width:44px;height:44px;display:flex;align-items:center;justify-content:center;
+    filter:drop-shadow(0 2px 4px rgba(150,120,80,.15));
   }
-  .badge-icon{font-size:14px;}
 
   /* ====== 主布局 ====== */
   .main{display:flex;flex:1;min-height:0;overflow:hidden;}
   .sidebar{
-    width:80px;background:rgba(255,255,255,.55);
+    width:80px;background:rgba(251,243,223,.55);
     flex-shrink:0;display:flex;flex-direction:column;align-items:center;
     padding:12px 0 20px;overflow-y:auto;
-    border-right:1px solid rgba(200,180,160,.15);
+    border-right:1px solid rgba(180,150,100,.18);
   }
   .nav-item{
     display:flex;flex-direction:column;align-items:center;gap:4px;
-    padding:9px 4px;width:68px;border-radius:18px;cursor:pointer;
+    padding:9px 4px;width:68px;border-radius:20px;cursor:pointer;
     margin-bottom:5px;transition:all .2s;
   }
-  .nav-item:hover{background:rgba(255,255,255,.6);}
-  .nav-item.active{background:rgba(255,255,255,.85);box-shadow:0 4px 14px rgba(150,130,110,.12);}
+  .nav-item:hover{background:rgba(251,243,223,.7);}
+  .nav-item.active{background:var(--paper-card);box-shadow:0 3px 9px rgba(150,120,80,.12);border:1.5px solid var(--yellow-border);}
   .nav-icon{
-    width:44px;height:44px;border-radius:15px;display:flex;align-items:center;justify-content:center;
-    background:linear-gradient(145deg,#fff,#FFF5EE);
-    box-shadow:0 3px 10px rgba(150,130,110,.12);
+    width:46px;height:46px;border-radius:48% 52% 53% 47% / 54% 47% 53% 46%;
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 2px 6px rgba(150,120,80,.10);
     transition:all .2s;
   }
-  .nav-item.active .nav-icon{transform:scale(1.06) rotate(-4deg);box-shadow:0 6px 16px rgba(255,158,181,.3);animation:navPop .45s ease;}
-  .nav-item.active .nav-label{color:var(--orange-num);}
+  .nav-item.active .nav-icon{transform:scale(1.06) rotate(-4deg);box-shadow:0 4px 10px rgba(210,168,94,.25);animation:navPop .45s ease;}
+  .nav-item.active .nav-label{color:var(--coral-num);}
   @keyframes navPop{0%{transform:scale(.82);}50%{transform:scale(1.16) rotate(-7deg);}100%{transform:scale(1.06) rotate(-4deg);}}
   .nav-label{font-size:10.5px;color:var(--text-light);text-align:center;font-weight:600;}
   .nav-label{font-size:10.5px;color:var(--text-light);text-align:center;font-weight:600;}
-  .nav-item.active .nav-label{color:var(--orange-num);}
+  .nav-item.active .nav-label{color:var(--coral-num);}
 
   /* ====== 内容区 ====== */
   .content{flex:1;padding:4px 16px 100px 16px;overflow-y:auto;}
@@ -110,11 +120,18 @@
     margin-bottom:14px;
     background:var(--pink-bg);
     border:2px solid var(--pink-border);
-    box-shadow:0 6px 20px rgba(255,143,163,.12);
+    box-shadow:0 3px 10px rgba(150,120,80,.10);
     transition:transform .2s;
   }
-  .card:nth-of-type(odd){background:var(--yellow-bg);border-color:var(--yellow-border);box-shadow:0 6px 20px rgba(245,185,66,.12);}
-  .card:nth-of-type(3n){background:var(--blue-bg);border-color:var(--blue-border);box-shadow:0 6px 20px rgba(123,179,224,.12);}
+  .card:nth-of-type(odd){background:var(--yellow-bg);border-color:var(--yellow-border);box-shadow:0 3px 10px rgba(150,120,80,.10);}
+  .card:nth-of-type(3n){background:var(--blue-bg);border-color:var(--blue-border);box-shadow:0 3px 10px rgba(150,120,80,.10);}
+
+  /* ====== 英雄区：软萌小怪兽插画 ====== */
+  .hero{position:relative;border-radius:24px;margin-bottom:14px;padding:8px 10px 6px;
+    background:linear-gradient(165deg,#FBF3DF,#F4E6C4);border:2px solid var(--yellow-border);
+    box-shadow:0 3px 10px rgba(150,120,80,.10);overflow:hidden;}
+  .hero-svg{display:block;width:100%;height:auto;}
+  .hero-cap{text-align:center;font-size:12.5px;color:var(--text-light);margin-top:2px;letter-spacing:.5px;}
 
   /* ====== 进度环 ====== */
   .ring-wrap{display:flex;flex-direction:column;align-items:center;padding:8px 0 4px;}
@@ -307,58 +324,64 @@
 <body>
 
 <div class="header">
-  <div class="back" onclick="toggleSidebar()" title="展开 / 收起导航">☰</div>
-  <div class="title">野鹿工作台</div>
-  <div class="badge"><span class="badge-icon">🏅</span><span>1</span></div>
+  <div class="back" onclick="toggleSidebar()" title="展开 / 收起导航"><span class="back-flower">🌼</span><span class="back-ico">☰</span></div>
+  <div class="title">野鹿的工作台</div>
+  <div class="header-ring" title="今日完成进度">
+    <svg viewBox="0 0 44 44" width="44" height="44">
+      <circle cx="22" cy="22" r="18" fill="none" stroke="rgba(255,255,255,.7)" stroke-width="5"/>
+      <circle id="headerRingBar" cx="22" cy="22" r="18" fill="none" stroke="var(--coral-num)" stroke-width="5" stroke-linecap="round" stroke-dasharray="113.1" stroke-dashoffset="113.1" transform="rotate(-90 22 22)"/>
+      <text id="headerRingTxt" x="22" y="23" text-anchor="middle" dominant-baseline="middle" font-size="11" font-weight="700" fill="var(--text)">0%</text>
+    </svg>
+  </div>
 </div>
 
 <div class="main">
 
   <div class="sidebar">
     <div class="nav-item active" onclick="switchTab('daily',this)">
-      <div class="nav-icon" style="background:var(--orange-light);color:var(--orange);">
+      <div class="nav-icon" style="background:var(--pink-bg);color:var(--pink-num);">
         <svg viewBox="0 0 28 28" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="7.5" y="5" width="13" height="18" rx="3"/><rect x="10" y="3" width="8" height="4" rx="2" fill="currentColor"/><path d="M10.5 13l2.5 2.5 4.5-5.5"/></svg>
       </div>
       <div class="nav-label">每日任务</div>
     </div>
     <div class="nav-item" onclick="switchTab('english',this)">
-      <div class="nav-icon" style="background:var(--blue-light);color:var(--blue);">
+      <div class="nav-icon" style="background:var(--blue-bg);color:var(--blue-num);">
         <svg viewBox="0 0 28 28" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 8c-3-2-7-2-9-1v11c2-1 6-1 9 1 3-2 7-2 9-1V7c-2-1-6-1-9 1z"/><path d="M14 8v11"/></svg>
       </div>
       <div class="nav-label">英语学习</div>
     </div>
     <div class="nav-item" onclick="switchTab('myanmar',this)">
-      <div class="nav-icon" style="background:var(--teal-light);color:var(--teal);">
+      <div class="nav-icon" style="background:var(--teal-bg);color:var(--teal-num);">
         <svg viewBox="0 0 28 28" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 6h18v12H13l-4 4v-4H5z"/><circle cx="10" cy="12" r="1.3" fill="currentColor" stroke="none"/><circle cx="14" cy="12" r="1.3" fill="currentColor" stroke="none"/><circle cx="18" cy="12" r="1.3" fill="currentColor" stroke="none"/></svg>
       </div>
       <div class="nav-label">缅甸语学习</div>
     </div>
     <div class="nav-item" onclick="switchTab('accounting',this)">
-      <div class="nav-icon" style="background:var(--purple-light);color:var(--purple);">
+      <div class="nav-icon" style="background:var(--purple-bg);color:var(--purple-num);">
         <svg viewBox="0 0 28 28" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="5" width="18" height="18" rx="3"/><path d="M5 11h18M5 17h18"/><circle cx="11" cy="8" r="1.5" fill="currentColor" stroke="none"/><circle cx="17" cy="8" r="1.5" fill="currentColor" stroke="none"/><circle cx="11" cy="14" r="1.5" fill="currentColor" stroke="none"/><circle cx="17" cy="14" r="1.5" fill="currentColor" stroke="none"/><circle cx="11" cy="20" r="1.5" fill="currentColor" stroke="none"/><circle cx="17" cy="20" r="1.5" fill="currentColor" stroke="none"/></svg>
       </div>
       <div class="nav-label">初级会计</div>
     </div>
     <div class="nav-item" onclick="switchTab('news',this)">
-      <div class="nav-icon" style="background:var(--yellow-light);color:var(--yellow);">
+      <div class="nav-icon" style="background:var(--yellow-bg);color:var(--yellow-num);">
         <svg viewBox="0 0 28 28" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 6h13a2 2 0 0 1 2 2v14H7a2 2 0 0 1-2-2z"/><path d="M20 8h3v12a2 2 0 0 1-2 2h-1"/><path d="M8 10h7M8 14h7M8 18h5"/></svg>
       </div>
       <div class="nav-label">新闻</div>
     </div>
     <div class="nav-item" onclick="switchTab('money',this)">
-      <div class="nav-icon" style="background:var(--green-light);color:var(--green);">
+      <div class="nav-icon" style="background:var(--green-bg);color:var(--green-num);">
         <svg viewBox="0 0 28 28" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="14" cy="14" r="9"/><path d="M14 9v10M11 12l3-3 3 3M11 16l3 3 3-3"/></svg>
       </div>
       <div class="nav-label">理财知识</div>
     </div>
     <div class="nav-item" onclick="switchTab('food',this)">
-      <div class="nav-icon" style="background:var(--coral-light);color:var(--coral);">
+      <div class="nav-icon" style="background:var(--coral-bg);color:var(--coral-num);">
         <svg viewBox="0 0 28 28" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 11c-4-3-9-1-9 4 0 5 4 8 9 8s9-3 9-8c0-5-5-7-9-4z" fill="currentColor" fill-opacity="0.12"/><path d="M14 11c0-3 1-5 3-6"/><path d="M16 6c1-1 3-1 3 1"/></svg>
       </div>
       <div class="nav-label">饮食记录</div>
     </div>
     <div class="nav-item" onclick="switchTab('idea',this)">
-      <div class="nav-icon" style="background:var(--yellow-light);color:var(--yellow);">
+      <div class="nav-icon" style="background:var(--yellow-bg);color:var(--yellow-num);">
         <svg viewBox="0 0 28 28" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 5a7 7 0 0 0-4 12c1 1 1 2 1 3h6c0-1 0-2 1-3a7 7 0 0 0-4-12z" fill="currentColor" fill-opacity="0.12"/><path d="M11 22h6M12 25h4"/></svg>
       </div>
       <div class="nav-label">想法记录</div>
@@ -369,6 +392,82 @@
 
     <!-- ===== 每日任务 ===== -->
     <div class="module-content active" id="tab-daily">
+      <div class="hero">
+        <svg class="hero-svg" viewBox="0 0 340 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="蓝色小怪兽在木质书桌前写字">
+          <!-- 暖光 -->
+          <ellipse cx="262" cy="64" rx="120" ry="84" fill="#FBE6B0" opacity="0.45"/>
+          <!-- 桌面 -->
+          <rect x="6" y="150" width="328" height="15" rx="7" fill="#CE915F"/>
+          <rect x="6" y="165" width="328" height="26" rx="6" fill="#BC7E4F"/>
+          <rect x="6" y="165" width="328" height="5" fill="#D79F6C" opacity="0.6"/>
+          <!-- 堆叠书本（左） -->
+          <g>
+            <rect x="20" y="132" width="48" height="14" rx="3" fill="#E7A6B6"/>
+            <rect x="24" y="120" width="44" height="14" rx="3" fill="#A6C9E6"/>
+            <rect x="18" y="108" width="50" height="14" rx="3" fill="#AEDCB4"/>
+          </g>
+          <!-- 台灯（右上） -->
+          <g>
+            <rect x="292" y="120" width="28" height="6" rx="3" fill="#9AA0A6"/>
+            <rect x="304" y="80" width="5" height="42" rx="2.5" fill="#9AA0A6" transform="rotate(16 304 101)"/>
+            <path d="M288 80 q15 -20 32 0 z" fill="#F2C44E"/>
+            <ellipse cx="304" cy="86" rx="15" ry="8" fill="#FFF4C6" opacity="0.85"/>
+          </g>
+          <!-- 盆栽（右前） -->
+          <g>
+            <path d="M250 150 l5 -22 h22 l5 22 z" fill="#DB8C5C"/>
+            <path d="M266 128 q-13 -19 -3 -34 q9 12 3 34" fill="#7FBF8E"/>
+            <path d="M266 128 q13 -21 3 -36 q-9 14 -3 36" fill="#93CF9F"/>
+            <path d="M266 130 q0 -24 0 -38 q5 19 0 38" fill="#6FB37E"/>
+          </g>
+          <!-- 咖啡杯（中右，带笑脸） -->
+          <g>
+            <path d="M196 126 q17 -3 34 0 v20 q0 8 -8 8 h-18 q-8 0 -8 -8 z" fill="#FFF6EE" stroke="#E2C7A8" stroke-width="2"/>
+            <path d="M230 131 q12 1 12 9 q0 8 -12 8" fill="none" stroke="#E2C7A8" stroke-width="3"/>
+            <circle cx="207" cy="137" r="2.3" fill="#7a5b43"/>
+            <circle cx="219" cy="137" r="2.3" fill="#7a5b43"/>
+            <path d="M204 143 q9 6 18 0" fill="none" stroke="#7a5b43" stroke-width="2" stroke-linecap="round"/>
+            <path d="M205 120 q3 -6 0 -10 M213 120 q3 -6 0 -10" stroke="#E9D3B0" stroke-width="2" fill="none" stroke-linecap="round"/>
+          </g>
+          <!-- 彩笔杯（中） -->
+          <g>
+            <path d="M150 150 l3 -26 h22 l3 26 z" fill="#C2E2EA"/>
+            <rect x="153" y="118" width="3" height="14" rx="1.5" fill="#E58A8A" transform="rotate(-12 154 125)"/>
+            <rect x="160" y="115" width="3" height="17" rx="1.5" fill="#F2C44E"/>
+            <rect x="167" y="117" width="3" height="15" rx="1.5" fill="#7FB0D8" transform="rotate(12 168 124)"/>
+            <rect x="174" y="119" width="3" height="13" rx="1.5" fill="#8FCF9C" transform="rotate(18 175 125)"/>
+          </g>
+          <!-- 小怪兽：身体 + 脸 -->
+          <g>
+            <path d="M74 150 C 60 110, 70 74, 110 74 C 150 74, 160 110, 146 150 Z" fill="#7FB6E0"/>
+            <ellipse cx="110" cy="118" rx="23" ry="25" fill="#C3E2F2"/>
+            <path d="M88 78 q-5 -13 4 -17 q5 9 -4 17" fill="#7FB6E0"/>
+            <path d="M132 78 q5 -13 -4 -17 q-5 9 4 17" fill="#7FB6E0"/>
+            <circle cx="101" cy="105" r="11" fill="#fff" stroke="#5b9bcb" stroke-width="1.5"/>
+            <circle cx="101" cy="107" r="5" fill="#3c3c3c"/>
+            <circle cx="103" cy="105" r="1.6" fill="#fff"/>
+            <circle cx="121" cy="105" r="11" fill="#fff" stroke="#5b9bcb" stroke-width="1.5"/>
+            <circle cx="121" cy="107" r="5" fill="#3c3c3c"/>
+            <circle cx="123" cy="105" r="1.6" fill="#fff"/>
+            <circle cx="89" cy="119" r="5" fill="#F4A9B8" opacity="0.6"/>
+            <circle cx="133" cy="119" r="5" fill="#F4A9B8" opacity="0.6"/>
+            <path d="M102 125 q9 7 18 0" fill="none" stroke="#3c3c3c" stroke-width="2" stroke-linecap="round"/>
+          </g>
+          <!-- 笔记本（桌前） -->
+          <g>
+            <path d="M70 152 l62 -5 7 13 -62 5 z" fill="#FFFDF6" stroke="#E2C7A8" stroke-width="1.5"/>
+            <path d="M80 149 l0 12 M94 148 l0 12 M108 147 l0 12 M122 146 l0 12" stroke="#D9C3A0" stroke-width="1.2"/>
+          </g>
+          <!-- 小怪兽：手 + 笔（最前） -->
+          <g>
+            <ellipse cx="82" cy="142" rx="9" ry="7" fill="#7FB6E0"/>
+            <ellipse cx="140" cy="140" rx="9" ry="7" fill="#7FB6E0"/>
+            <rect x="150" y="120" width="3" height="24" rx="1.5" fill="#E58A8A" transform="rotate(22 151 132)"/>
+            <circle cx="151.5" cy="119" r="3.2" fill="#E58A8A"/>
+          </g>
+        </svg>
+        <div class="hero-cap">小怪兽也在认真写笔记 ☕📚 今天也要加油呀～</div>
+      </div>
       <div class="page-header"><h2>每日任务</h2><div class="sub">今日待办 · 明日规划</div></div>
       <div class="card ring-wrap">
         <svg class="ring-svg" viewBox="0 0 160 160">
@@ -792,6 +891,8 @@ function updateRing(){
   document.getElementById('ringPct').textContent=pct+'%';
   document.getElementById('doneCount').textContent=completed;
   document.getElementById('totalCount').textContent=total;
+  const hb=document.getElementById('headerRingBar');
+  if(hb){hb.style.strokeDashoffset=113.1-(pct/100)*113.1;document.getElementById('headerRingTxt').textContent=completed+'/'+total;}
 }
 function toggleTodo(el){el.classList.toggle('done');updateRing();saveDaily();}
 function deleteTodo(e,btn){e.stopPropagation();btn.parentElement.remove();updateRing();saveDaily();}
