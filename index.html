@@ -66,7 +66,8 @@
     box-shadow:0 2px 6px rgba(150,120,80,.12);transition:all .2s;
   }
   .header .back:hover{transform:scale(1.06);}
-  .header .back-flower{position:absolute;font-size:26px;opacity:.4;line-height:1;}
+  .header .back-flower{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);opacity:.5;display:flex;}
+  .header .back-flower svg{display:block;}
   .header .back-ico{position:relative;font-size:18px;color:var(--text);}
   .header .title{
     font-size:21px;font-weight:700;font-family:var(--cute-font);
@@ -324,7 +325,7 @@
 <body>
 
 <div class="header">
-  <div class="back" onclick="toggleSidebar()" title="展开 / 收起导航"><span class="back-flower">🌼</span><span class="back-ico">☰</span></div>
+  <div class="back" onclick="toggleSidebar()" title="展开 / 收起导航"><span class="back-flower"><svg viewBox="0 0 32 32" width="26" height="26"><g fill="#F4A6BC"><ellipse cx="16" cy="7" rx="4.6" ry="7"/><ellipse cx="16" cy="7" rx="4.6" ry="7" transform="rotate(72 16 16)"/><ellipse cx="16" cy="7" rx="4.6" ry="7" transform="rotate(144 16 16)"/><ellipse cx="16" cy="7" rx="4.6" ry="7" transform="rotate(216 16 16)"/><ellipse cx="16" cy="7" rx="4.6" ry="7" transform="rotate(288 16 16)"/></g><circle cx="16" cy="16" r="4.6" fill="#F6D36B"/></svg></span><span class="back-ico">☰</span></div>
   <div class="title">野鹿的工作台</div>
   <div class="header-ring" title="今日完成进度">
     <svg viewBox="0 0 44 44" width="44" height="44">
