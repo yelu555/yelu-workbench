@@ -220,6 +220,11 @@
   .conv-py{font-size:13px;color:var(--text-light);margin-top:4px;font-style:italic;letter-spacing:.3px;}
   .conv-cn{font-size:13.5px;color:var(--text);margin-top:3px;}
 
+  /* ====== 注意事项行 ====== */
+  .tip-item{padding:12px 14px;border-bottom:1.5px dashed rgba(200,180,160,.25);font-size:14px;line-height:1.6;}
+  .tip-item:last-child{border-bottom:none;}
+  .tip-item b{color:var(--coral-num);font-size:13px;display:inline-block;min-width:80px;}
+
   /* ====== 新闻分类标签 ====== */
   .news-tag{display:inline-block;font-size:10px;font-weight:700;padding:2px 7px;border-radius:8px;margin-right:6px;vertical-align:middle;}
   .tag-财经{background:var(--green-light);color:var(--green-num);}
@@ -324,7 +329,7 @@
     </div>
     <div class="nav-item" onclick="switchTab('food',this)">
       <div class="nav-icon" style="background:var(--coral-light);">🥗</div>
-      <div class="nav-label">哺乳期减脂</div>
+      <div class="nav-label">饮食记录</div>
     </div>
     <div class="nav-item" onclick="switchTab('idea',this)">
       <div class="nav-icon" style="background:var(--yellow-light);">💡</div>
@@ -619,28 +624,29 @@
       </div>
     </div>
     <div class="module-content" id="tab-food">
-      <div class="page-header"><h2>哺乳期减脂</h2><div class="sub">奶量优先 · 温和掉秤 · 每周 -0.3~0.5kg</div></div>
-      <div class="card ring-wrap">
-        <svg class="ring-svg" viewBox="0 0 160 160">
-          <circle class="ring-bg" cx="80" cy="80" r="65"/>
-          <circle class="ring-bar" id="fitRingBar" cx="80" cy="80" r="65" stroke-dasharray="408.4" stroke-dashoffset="408.4" stroke="var(--pink)"/>
-          <text class="ring-text ring-pct" x="80" y="72" id="fitRingPct" style="fill:var(--pink)">0%</text>
-          <text class="ring-text ring-label" x="80" y="92">今日完成进度</text>
-        </svg>
-        <div class="ring-sub">已完成 <b id="fitDone">0</b>/<b>5</b> 项</div>
-      </div>
+      <div class="page-header"><h2>饮食记录</h2><div class="sub">记录每日餐饮 · 哺乳期饮食注意事项</div></div>
 
+      <!-- 注意事项（最上面） -->
       <div class="card">
-        <div class="todo-header"><span class="icon" style="background:var(--pink)">✓</span>每日打卡</div>
-        <div id="fitCheckList">
-          <div class="check-row" onclick="toggleFitCheck(this)"><div class="dot"></div><div class="txt">减脂节奏 · 不追求快速掉秤，优先保证奶量充足（目标每周 -0.3~0.5kg）</div></div>
-          <div class="check-row" onclick="toggleFitCheck(this)"><div class="dot"></div><div class="txt">饮食 · 三餐+2加餐，高蛋白为主，热量≥1800kcal（不极低碳水/不断碳/不吃减肥药/不代餐断食）</div></div>
-          <div class="check-row" onclick="toggleFitCheck(this)"><div class="dot"></div><div class="txt">运动 · 盆底/腹直肌修复+拉伸快走为主（不跑跳、不卷腹，碎片化10-15分钟）</div></div>
-          <div class="check-row" onclick="toggleFitCheck(this)"><div class="dot"></div><div class="txt">作息 · 跟随宝宝同步午睡，夜奶后即睡，手机不入卧室</div></div>
-          <div class="check-row" onclick="toggleFitCheck(this)"><div class="dot"></div><div class="txt">食材 · 未吃回奶食物（韭菜/麦芽/花椒/山楂/苦瓜），多吃下奶食物</div></div>
-        </div>
+        <div class="todo-header"><span class="icon" style="background:var(--coral-num)">⚠️</span>哺乳期饮食注意事项</div>
+        <div class="tip-item"><b>减脂节奏</b> 不追求快速掉秤，优先保证奶量充足（目标每周 -0.3~0.5kg）</div>
+        <div class="tip-item"><b>饮食原则</b> 三餐+2加餐，高蛋白为主，热量≥1800kcal（不极低碳水/不断碳/不吃减肥药/不代餐断食）</div>
+        <div class="tip-item"><b>运动方式</b> 盆底/腹直肌修复+拉伸快走为主（不跑跳、不卷腹，碎片化10-15分钟）</div>
+        <div class="tip-item"><b>作息建议</b> 跟随宝宝同步午睡，夜奶后即睡，手机不入卧室</div>
+        <div class="tip-item"><b>食材注意</b> 未吃回奶食物（韭菜/麦芽/花椒/山楂/苦瓜），多吃下奶食物</div>
       </div>
 
+      <!-- 餐饮记录清单 -->
+      <div class="card">
+        <div class="todo-header"><span class="icon" style="background:var(--coral-num)">🍽️</span>今日餐饮记录 <span style="font-size:11px;color:var(--text-light);" id="mealCount"></span></div>
+        <div class="add-row">
+          <input class="add-input" id="newMeal" placeholder="记一笔：如「早餐 燕麦粥+鸡蛋」…" onkeydown="if(event.key==='Enter')addMeal()">
+          <button class="add-btn" onclick="addMeal()" style="background:var(--coral-num);">添加</button>
+        </div>
+        <div id="mealList" class="todo-list"></div>
+      </div>
+
+      <!-- 附加参考 -->
       <div class="card">
         <div class="todo-header"><span class="icon" style="background:var(--pink)">📖</span>附加参考</div>
         <p style="font-size:13px;color:var(--text-light);margin-bottom:10px;">点击展开查看</p>
@@ -686,8 +692,8 @@
       </div>
 
       <div class="bottom-btns">
-        <button class="btn" onclick="resetFitness()">重置</button>
-        <button class="btn btn-primary" onclick="saveFitness()">保存进度</button>
+        <button class="btn" onclick="clearMeals()">清空今日</button>
+        <button class="btn btn-primary" onclick="saveMeals()">保存记录</button>
       </div>
     </div>
     <div class="module-content" id="tab-idea">
@@ -764,31 +770,47 @@ function loadDaily(){
   updateRing();
 }
 
-// ===== 哺乳期减脂 =====
-function toggleFitCheck(el){el.classList.toggle('done');updateFitRing();saveFitness();}
-function updateFitRing(){
-  const all=document.querySelectorAll('#fitCheckList .check-row');
-  const done=document.querySelectorAll('#fitCheckList .check-row.done');
-  const pct=Math.round(done.length/5*100),c=2*Math.PI*65;
-  document.getElementById('fitRingBar').style.strokeDashoffset=c-(pct/100)*c;
-  document.getElementById('fitRingPct').textContent=pct+'%';
-  document.getElementById('fitDone').textContent=done.length;
+// ===== 饮食记录（餐饮清单） =====
+const MEAL_KEY='meals_'+new Date().toISOString().slice(0,10);
+function addMeal(){
+  const input=document.getElementById('newMeal');
+  const text=input.value.trim();
+  if(!text)return;
+  const list=document.getElementById('mealList');
+  const d=document.createElement('div');d.className='todo-item';
+  d.innerHTML='<div class="todo-check">✓</div><div class="todo-text">'+text+'</div><div class="todo-del" onclick="deleteMeal(event,this)">×</div>';
+  list.appendChild(d);
+  input.value='';
+  saveMeals();
 }
-function saveFitness(){
-  const checks=[];
-  document.querySelectorAll('#fitCheckList .check-row').forEach(el=>checks.push(el.classList.contains('done')));
-  localStorage.setItem('fitness_'+new Date().toISOString().slice(0,10),JSON.stringify(checks));
+function deleteMeal(e,btn){
+  e.stopPropagation();btn.parentElement.remove();saveMeals();
 }
-function resetFitness(){
-  if(!confirm('确定重置今日减脂打卡吗？'))return;
-  document.querySelectorAll('#fitCheckList .check-row').forEach(el=>el.classList.remove('done'));
-  localStorage.removeItem('fitness_'+new Date().toISOString().slice(0,10));
-  updateFitRing();
+function saveMeals(){
+  const meals=[];
+  document.querySelectorAll('#mealList .todo-item').forEach(el=>meals.push(el.querySelector('.todo-text').textContent));
+  localStorage.setItem(MEAL_KEY,JSON.stringify(meals));
+  updateMealCount();
 }
-(function initFitness(){
-  const checks=JSON.parse(localStorage.getItem('fitness_'+new Date().toISOString().slice(0,10))||'[]');
-  document.querySelectorAll('#fitCheckList .check-row').forEach((el,i)=>{if(checks[i])el.classList.add('done');});
-  updateFitRing();
+function clearMeals(){
+  if(!confirm('确定清空今日餐饮记录吗？'))return;
+  document.getElementById('mealList').innerHTML='';
+  localStorage.removeItem(MEAL_KEY);
+  updateMealCount();
+}
+function updateMealCount(){
+  const n=document.querySelectorAll('#mealList .todo-item').length;
+  document.getElementById('mealCount').textContent=n>0?'（已记 '+n+' 笔）':'';
+}
+(function initMeals(){
+  const meals=JSON.parse(localStorage.getItem(MEAL_KEY)||'[]');
+  const list=document.getElementById('mealList');
+  meals.forEach(text=>{
+    const d=document.createElement('div');d.className='todo-item';
+    d.innerHTML='<div class="todo-check">✓</div><div class="todo-text">'+text+'</div><div class="todo-del" onclick="deleteMeal(event,this)">×</div>';
+    list.appendChild(d);
+  });
+  updateMealCount();
 })();
 
 // ===== 缅甸语学习 =====
