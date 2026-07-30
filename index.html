@@ -106,22 +106,15 @@
 
   /* ====== 卡片（马卡龙纯色底） ====== */
   .card{
-    position:relative;border-radius:24px;padding:22px 18px 26px;
-    margin-bottom:16px;overflow:hidden;
+    border-radius:22px;padding:20px 18px;
+    margin-bottom:14px;
     background:var(--pink-bg);
-    border:2.5px solid var(--pink-border);
-    box-shadow:0 8px 28px rgba(255,143,163,.15),inset 0 2px 0 rgba(255,255,255,.45);
-    transition:transform .25s;
+    border:2px solid var(--pink-border);
+    box-shadow:0 6px 20px rgba(255,143,163,.12);
+    transition:transform .2s;
   }
-  /* 卡片角落小装饰 */
-  .card::after{content:'';position:absolute;right:14px;bottom:10px;font-size:26px;opacity:.55;z-index:0;pointer-events:none;}
-  .card:nth-of-type(odd){background:var(--yellow-bg);border-color:var(--yellow-border);box-shadow:0 8px 28px rgba(245,185,66,.15),inset 0 2px 0 rgba(255,255,255,.45);}
-  .card:nth-of-type(odd)::after{content:'🌸';}
-  .card:nth-of-type(3n){background:var(--blue-bg);border-color:var(--blue-border);box-shadow:0 8px 28px rgba(123,179,224,.15),inset 0 2px 0 rgba(255,255,255,.45);}
-  .card:nth-of-type(3n)::after{content:'☁️';}
-  /* 第4张起循环 */
-  .card:nth-of-type(4n)::after{content:'🌿';}
-  .card:nth-of-type(5n)::after{content:'💚';}
+  .card:nth-of-type(odd){background:var(--yellow-bg);border-color:var(--yellow-border);box-shadow:0 6px 20px rgba(245,185,66,.12);}
+  .card:nth-of-type(3n){background:var(--blue-bg);border-color:var(--blue-border);box-shadow:0 6px 20px rgba(123,179,224,.12);}
 
   /* ====== 进度环 ====== */
   .ring-wrap{display:flex;flex-direction:column;align-items:center;padding:8px 0 4px;}
@@ -141,43 +134,35 @@
     display:flex;align-items:center;justify-content:center;font-size:14px;color:#fff;
   }
 
-  /* ====== 待办列表（参考图风格：编号圆圈+虚线） ====== */
-  .todo-list{display:flex;flex-direction:column;gap:10px;}
+  /* ====== 待办列表（彩色卡片行） ====== */
+  .todo-list{display:flex;flex-direction:column;gap:8px;}
   .todo-item{
     display:flex;align-items:center;gap:12px;
-    padding:16px 16px 16px 10px;border-radius:20px;cursor:pointer;
-    background:rgba(255,255,255,.82);border:none;
-    transition:all .22s;position:relative;overflow:hidden;
+    padding:14px 16px;border-radius:18px;cursor:pointer;
+    background:rgba(255,255,255,.75);border:1.5px solid rgba(200,180,160,.2);
+    transition:all .2s;position:relative;overflow:hidden;
   }
-  .todo-item::after{content:'';position:absolute;right:14px;bottom:10px;font-size:24px;opacity:.3;z-index:0;pointer-events:none;}
+  .todo-item::after{content:'';position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:22px;opacity:.35;}
   .todo-item:nth-child(1)::after{content:'🌸';}
   .todo-item:nth-child(2)::after{content:'🌿';}
   .todo-item:nth-child(3)::after{content:'☁️';}
   .todo-item:nth-child(4)::after{content:'💚';}
   .todo-item:nth-child(5)::after{content:'✨';}
   .todo-item:nth-child(n+6)::after{content:'🌈';}
-  .todo-item:hover{transform:translateY(-2px) scale(.995);box-shadow:0 6px 18px rgba(150,130,110,.12);}
+  .todo-item:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(150,130,110,.1);}
   .todo-item:last-child{margin-bottom:0;}
-  /* 编号圆圈 */
   .todo-check{
-    width:32px;height:32px;border-radius:50%;
+    width:28px;height:28px;border-radius:50%;border:2.5px solid #D4C4B4;
     display:flex;align-items:center;justify-content:center;flex-shrink:0;
-    font-size:15px;font-weight:800;color:#fff;border:none;
-    transition:all .25s;position:relative;z-index:1;
+    font-size:14px;color:transparent;transition:all .25s;
+    background:#fff;
   }
-  .todo-item:nth-child(1) .todo-check{background:var(--pink-num);}
-  .todo-item:nth-child(2) .todo-check{background:var(--yellow-num);}
-  .todo-item:nth-child(3) .todo-check{background:var(--blue-num);}
-  .todo-item:nth-child(4) .todo-check{background:var(--teal-num);}
-  .todo-item:nth-child(5) .todo-check{background:var(--purple-num);}
-  .todo-item:nth-child(n+6) .todo-check{background:var(--coral-num);}
-  .todo-text{
-    flex:1;font-size:15px;font-weight:600;line-height:1.4;
-    border-bottom:2px dashed rgba(180,160,140,.35);padding-bottom:6px;
-    transition:all .2s;position:relative;z-index:1;
+  .todo-item.done .todo-check{
+    border-color:var(--green-num);background:var(--green-num);color:#fff;
+    transform:scale(.92);
   }
-  .todo-item.done .todo-text{color:var(--text-light);text-decoration:line-through;text-decoration-style:dashed;text-decoration-color:var(--green-num);text-decoration-thickness:2px;border-bottom:none;padding-bottom:0;}
-  .todo-item.done .todo-check{background:var(--green-num)!important;box-shadow:0 3px 10px rgba(158,201,154,.45);}
+  .todo-text{flex:1;font-size:14.5px;font-weight:500;transition:all .2s;}
+  .todo-item.done .todo-text{color:var(--text-light);text-decoration:line-through;text-decoration-thickness:2px;}
   .todo-del{
     width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;
     color:#CCC5BF;font-size:17px;cursor:pointer;transition:all .2s;flex-shrink:0;
@@ -263,29 +248,23 @@
 
   /* ====== check-row（打卡行） ====== */
   .check-row{
-    display:flex;align-items:center;gap:14px;padding:15px 16px 15px 10px;
-    border-radius:20px;margin-bottom:10px;cursor:pointer;
-    background:rgba(255,255,255,.82);border:none;position:relative;
-    transition:all .2s;
+    display:flex;align-items:center;gap:12px;padding:13px 16px;
+    border-radius:18px;margin-bottom:8px;cursor:pointer;
+    border:2px solid rgba(200,180,160,.25);
+    background:rgba(255,255,255,.75);
+    transition:all .18s;position:relative;
   }
-  .check-row:hover{transform:translateY(-1.5px) scale(.995);box-shadow:0 5px 14px rgba(150,130,110,.1);}
-  .check-row.done{background:var(--green-bg);box-shadow:0 5px 14px rgba(158,201,154,.2);}
-  /* 编号圆点 */
+  .check-row:hover{border-color:var(--orange-num);transform:translateX(3px);}
+  .check-row.done{border-color:var(--green-num);background:var(--green-bg);}
   .check-row .dot{
-    width:30px;height:30px;border-radius:50%;border:none;
-    flex-shrink:0;transition:all .25s;background:var(--orange-num);
-    display:flex;align-items:center;justify-content:center;color:#fff;
-    font-size:14px;font-weight:800;z-index:1;
+    width:24px;height:24px;border-radius:50%;border:2.5px solid #D4C4B4;
+    flex-shrink:0;transition:all .25s;background:#fff;
   }
-  .check-row.done .dot{background:var(--green-num)!important;transform:scale(.92);box-shadow:0 3px 10px rgba(158,201,154,.45);}
-  .check-row .dot::after{content:'';}
-  .check-row.done .dot::after{content:'✓';}
-  .check-row .txt{
-    flex:1;font-size:14.5px;font-weight:600;line-height:1.4;
-    border-bottom:2px dashed rgba(180,160,140,.3);padding-bottom:6px;
-    transition:all .2s;
-  }
-  .check-row.done .txt{color:var(--green-num);text-decoration:line-through;text-decoration-style:dashed;text-decoration-thickness:2px;border-bottom:none;padding-bottom:0;}
+  .check-row.done .dot{border-color:var(--green-num);background:var(--green-num);transform:scale(.9);}
+  .check-row .dot::after{content:'✓';font-size:13px;color:transparent;display:flex;align-items:center;justify-content:center;}
+  .check-row.done .dot::after{color:#fff;}
+  .check-row .txt{flex:1;font-size:14px;font-weight:500;}
+  .check-row.done .txt{color:var(--green-num);text-decoration:line-through;text-decoration-thickness:2px;}
 
   /* ====== 表格 ====== */
   table{width:100%;border-collapse:collapse;font-size:13px;margin-top:8px;}
@@ -403,11 +382,11 @@
       <div class="card">
         <div class="todo-header"><span class="icon">✓</span>今日待办清单</div>
         <div class="todo-list" id="todoList">
-          <div class="todo-item" onclick="toggleTodo(this)"><div class="todo-check">①</div><div class="todo-text">英语学习</div><div class="todo-del" onclick="deleteTodo(event,this)">×</div></div>
-          <div class="todo-item" onclick="toggleTodo(this)"><div class="todo-check">②</div><div class="todo-text">缅甸语学习</div><div class="todo-del" onclick="deleteTodo(event,this)">×</div></div>
-          <div class="todo-item" onclick="toggleTodo(this)"><div class="todo-check">③</div><div class="todo-text">初级会计</div><div class="todo-del" onclick="deleteTodo(event,this)">×</div></div>
-          <div class="todo-item" onclick="toggleTodo(this)"><div class="todo-check">④</div><div class="todo-text">理财入门基础知识</div><div class="todo-del" onclick="deleteTodo(event,this)">×</div></div>
-          <div class="todo-item" onclick="toggleTodo(this)"><div class="todo-check">⑤</div><div class="todo-text">新闻阅读</div><div class="todo-del" onclick="deleteTodo(event,this)">×</div></div>
+          <div class="todo-item" onclick="toggleTodo(this)"><div class="todo-check">✓</div><div class="todo-text">英语学习</div><div class="todo-del" onclick="deleteTodo(event,this)">×</div></div>
+          <div class="todo-item" onclick="toggleTodo(this)"><div class="todo-check">✓</div><div class="todo-text">缅甸语学习</div><div class="todo-del" onclick="deleteTodo(event,this)">×</div></div>
+          <div class="todo-item" onclick="toggleTodo(this)"><div class="todo-check">✓</div><div class="todo-text">初级会计</div><div class="todo-del" onclick="deleteTodo(event,this)">×</div></div>
+          <div class="todo-item" onclick="toggleTodo(this)"><div class="todo-check">✓</div><div class="todo-text">理财入门基础知识</div><div class="todo-del" onclick="deleteTodo(event,this)">×</div></div>
+          <div class="todo-item" onclick="toggleTodo(this)"><div class="todo-check">✓</div><div class="todo-text">新闻阅读</div><div class="todo-del" onclick="deleteTodo(event,this)">×</div></div>
         </div>
         <div class="add-row"><input class="add-input" id="newTask" placeholder="添加新任务…" onkeydown="if(event.key==='Enter')addTask()"><button class="add-btn" onclick="addTask()">添加</button></div>
       </div>
@@ -433,10 +412,10 @@
       <div class="card">
         <div class="todo-header"><span class="icon" style="background:var(--teal)">✓</span>今日学习打卡</div>
         <div id="myCheckList">
-          <div class="check-row" onclick="toggleMyCheck(this)"><div class="dot">①</div><div class="txt">5分钟 · 日常会话句型跟读</div></div>
-          <div class="check-row" onclick="toggleMyCheck(this)"><div class="dot">②</div><div class="txt">5分钟 · 高频词汇记忆（5个新词）</div></div>
-          <div class="check-row" onclick="toggleMyCheck(this)"><div class="dot">③</div><div class="txt">写字 10 分钟</div></div>
-          <div class="check-row" onclick="toggleMyCheck(this)"><div class="dot">④</div><div class="txt">阅读 10 分钟</div></div>
+          <div class="check-row" onclick="toggleMyCheck(this)"><div class="dot"></div><div class="txt">5分钟 · 日常会话句型跟读</div></div>
+          <div class="check-row" onclick="toggleMyCheck(this)"><div class="dot"></div><div class="txt">5分钟 · 高频词汇记忆（5个新词）</div></div>
+          <div class="check-row" onclick="toggleMyCheck(this)"><div class="dot"></div><div class="txt">写字 10 分钟</div></div>
+          <div class="check-row" onclick="toggleMyCheck(this)"><div class="dot"></div><div class="txt">阅读 10 分钟</div></div>
         </div>
       </div>
       <div class="card">
@@ -498,9 +477,9 @@
       <div class="card">
         <div class="todo-header"><span class="icon" style="background:var(--blue)">✓</span>今日打卡</div>
         <div id="enCheckList">
-          <div class="check-row" onclick="toggleEnCheck(this)"><div class="dot">①</div><div class="txt">学习自然拼读 15 分钟</div></div>
-          <div class="check-row" onclick="toggleEnCheck(this)"><div class="dot">②</div><div class="txt">记 10 个单词</div></div>
-          <div class="check-row" onclick="toggleEnCheck(this)"><div class="dot">③</div><div class="txt">记 5 句英语</div></div>
+          <div class="check-row" onclick="toggleEnCheck(this)"><div class="dot"></div><div class="txt">学习自然拼读 15 分钟</div></div>
+          <div class="check-row" onclick="toggleEnCheck(this)"><div class="dot"></div><div class="txt">记 10 个单词</div></div>
+          <div class="check-row" onclick="toggleEnCheck(this)"><div class="dot"></div><div class="txt">记 5 句英语</div></div>
         </div>
       </div>
 
@@ -563,10 +542,10 @@
       <div class="card">
         <div class="todo-header"><span class="icon" style="background:var(--purple)">📝</span>今日学习打卡</div>
         <div id="accCheckList">
-          <div class="check-row" onclick="toggleAccCheck(this)"><div class="dot">①</div><div class="txt">听课 · 看视频课程（30-45分钟）</div></div>
-          <div class="check-row" onclick="toggleAccCheck(this)"><div class="dot">②</div><div class="txt">做题 · 章节练习题（10-15道）</div></div>
-          <div class="check-row" onclick="toggleAccCheck(this)><div class="dot">③</div><div class="txt">错题 · 整理错题本（当日错题复盘）</div></div>
-          <div class="check-row" onclick="toggleAccCheck(this)"><div class="dot">④</div><div class="txt">记忆 · 背诵分录/公式/概念（10分钟）</div></div>
+          <div class="check-row" onclick="toggleAccCheck(this)"><div class="dot"></div><div class="txt">听课 · 看视频课程（30-45分钟）</div></div>
+          <div class="check-row" onclick="toggleAccCheck(this)"><div class="dot"></div><div class="txt">做题 · 章节练习题（10-15道）</div></div>
+          <div class="check-row" onclick="toggleAccCheck(this)"><div class="dot"></div><div class="txt">错题 · 整理错题本（当日错题复盘）</div></div>
+          <div class="check-row" onclick="toggleAccCheck(this)"><div class="dot"></div><div class="txt">记忆 · 背诵分录/公式/概念（10分钟）</div></div>
         </div>
       </div>
 
@@ -637,9 +616,9 @@
       <div class="card">
         <div class="todo-header"><span class="icon" style="background:var(--green)">✓</span>今日理财打卡</div>
         <div id="moneyCheckList">
-          <div class="check-row" onclick="toggleMoneyCheck(this)"><div class="dot">①</div><div class="txt">阅读理财知识（15分钟）</div></div>
-          <div class="check-row" onclick="toggleMoneyCheck(this)"><div class="dot">②</div><div class="txt">记录今日收支</div></div>
-          <div class="check-row" onclick="toggleMoneyCheck(this)"><div class="dot">③</div><div class="txt">复盘一个理财概念</div></div>
+          <div class="check-row" onclick="toggleMoneyCheck(this)"><div class="dot"></div><div class="txt">阅读理财知识（15分钟）</div></div>
+          <div class="check-row" onclick="toggleMoneyCheck(this)"><div class="dot"></div><div class="txt">记录今日收支</div></div>
+          <div class="check-row" onclick="toggleMoneyCheck(this)"><div class="dot"></div><div class="txt">复盘一个理财概念</div></div>
         </div>
       </div>
 
@@ -803,28 +782,15 @@ function updateRing(){
   document.getElementById('doneCount').textContent=completed;
   document.getElementById('totalCount').textContent=total;
 }
-const CIRCLED='①②③④⑤⑥⑦⑧⑨⑩⑪⑫⑬⑭⑮⑯⑰⑱⑲⑳';
-function todoNum(i){return CIRCLED[i]||(i+1);}
-function toggleTodo(el){
-  el.classList.toggle('done');
-  const ck=el.querySelector('.todo-check');
-  if(el.classList.contains('done'))ck.textContent='✓';
-  else{const idx=[].indexOf.call(el.parentElement.children,el);ck.textContent=todoNum(idx);}
-  updateRing();saveDaily();
-}
-function deleteTodo(e,btn){e.stopPropagation();btn.parentElement.remove();renumberTodos();updateRing();saveDaily();}
-function renumberTodos(){
-  document.querySelectorAll('#todoList .todo-item').forEach((el,i)=>{
-    if(!el.classList.contains('done'))el.querySelector('.todo-check').textContent=todoNum(i);
-  });
-}
+function toggleTodo(el){el.classList.toggle('done');updateRing();saveDaily();}
+function deleteTodo(e,btn){e.stopPropagation();btn.parentElement.remove();updateRing();saveDaily();}
 function addTask(){
   const v=document.getElementById('newTask').value.trim();
   if(!v)return;
-  const list=document.getElementById('todoList'),idx=list.children.length;
-  const d=document.createElement('div');d.className='todo-item';d.onclick=function(){toggleTodo(this);};
-  d.innerHTML='<div class="todo-check">'+todoNum(idx)+'</div><div class="todo-text">'+v+'</div><div class="todo-del" onclick="deleteTodo(event,this)">×</div>';
-  list.appendChild(d);
+  const d=document.createElement('div');
+  d.className='todo-item';d.onclick=function(){toggleTodo(this);};
+  d.innerHTML='<div class="todo-check">✓</div><div class="todo-text">'+v+'</div><div class="todo-del" onclick="deleteTodo(event,this)">×</div>';
+  document.getElementById('todoList').appendChild(d);
   document.getElementById('newTask').value='';
   updateRing();saveDaily();
 }
@@ -845,12 +811,11 @@ function loadDaily(){
   const result=[];
   priority.forEach(p=>{result.push(map[p]||{text:p,done:false});});
   t.forEach(x=>{if(!priority.includes(x.text))result.push(x);});
-  let idx=0;
   result.forEach(x=>{
     const d=document.createElement('div');d.className='todo-item'+(x.done?' done':'');
     d.onclick=function(){toggleTodo(this);};
-    d.innerHTML='<div class="todo-check">'+(x.done?'✓':todoNum(idx))+'</div><div class="todo-text">'+x.text+'</div><div class="todo-del" onclick="deleteTodo(event,this)">×</div>';
-    list.appendChild(d);idx++;
+    d.innerHTML='<div class="todo-check">✓</div><div class="todo-text">'+x.text+'</div><div class="todo-del" onclick="deleteTodo(event,this)">×</div>';
+    list.appendChild(d);
   });
   updateRing();
 }
@@ -980,13 +945,7 @@ function renderAlpha(){
     grid.appendChild(card);
   });
 }
-function toggleMyCheck(el){
-  el.classList.toggle('done');
-  const d=el.querySelector('.dot');
-  if(el.classList.contains('done'))d.textContent='✓';
-  else{const i=[].indexOf.call(el.parentElement.children,el);d.textContent=todoNum(i);}
-  updateMyanmarRing();saveMyanmar();
-}
+function toggleMyCheck(el){el.classList.toggle('done');updateMyanmarRing();saveMyanmar();}
 function updateMyanmarRing(){
   const alphaDone=(JSON.parse(localStorage.getItem('myanmar_alpha')||'[]')).length;
   const checkDone=document.querySelectorAll('#myCheckList .check-row.done').length;
@@ -1015,13 +974,7 @@ function resetMyanmar(){
 })();
 
 // ===== 英语学习 =====
-function toggleEnCheck(el){
-  el.classList.toggle('done');
-  const d=el.querySelector('.dot');
-  if(el.classList.contains('done'))d.textContent='✓';
-  else{const i=[].indexOf.call(el.parentElement.children,el);d.textContent=todoNum(i);}
-  updateEnRing();saveEnglish();
-}
+function toggleEnCheck(el){el.classList.toggle('done');updateEnRing();saveEnglish();}
 function updateEnRing(){
   const done=document.querySelectorAll('#enCheckList .check-row.done').length,total=3;
   const pct=Math.round(done/total*100),c=2*Math.PI*65;
@@ -1047,13 +1000,7 @@ function resetEnglish(){
 })();
 
 // ===== 初级会计备考 =====
-function toggleAccCheck(el){
-  el.classList.toggle('done');
-  const d=el.querySelector('.dot');
-  if(el.classList.contains('done'))d.textContent='✓';
-  else{const i=[].indexOf.call(el.parentElement.children,el);d.textContent=todoNum(i);}
-  updateAccRing();saveAccounting();
-}
+function toggleAccCheck(el){el.classList.toggle('done');updateAccRing();saveAccounting();}
 function updateAccRing(){
   const done=document.querySelectorAll('#accCheckList .check-row.done').length;
   const pct=Math.round(done/4*100),c=2*Math.PI*65;
@@ -1167,13 +1114,7 @@ function saveNewsCache(data){localStorage.setItem('news_cache',JSON.stringify(da
 })();
 
 // ===== 理财知识 =====
-function toggleMoneyCheck(el){
-  el.classList.toggle('done');
-  const d=el.querySelector('.dot');
-  if(el.classList.contains('done'))d.textContent='✓';
-  else{const i=[].indexOf.call(el.parentElement.children,el);d.textContent=todoNum(i);}
-  updateMoneyRing();saveMoney();
-}
+function toggleMoneyCheck(el){el.classList.toggle('done');updateMoneyRing();saveMoney();}
 function updateMoneyRing(){
   const done=document.querySelectorAll('#moneyCheckList .check-row.done').length;
   const pct=Math.round(done/3*100),c=2*Math.PI*65;
