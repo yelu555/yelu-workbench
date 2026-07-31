@@ -901,12 +901,14 @@ function addTask(){
 function clearAll(){if(confirm('确定清空所有任务？')){document.getElementById('todoList').innerHTML='';updateRing();saveDaily();}}
 function archive(){alert('📦 已存档！');}
 function save(){saveDaily();alert('✅ 已保存！');}
+/* 本地日期（北京时间），用于每日重置存储键 */
+function todayKey(){const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
 function saveDaily(){
   const t=[];document.querySelectorAll('#todoList .todo-item').forEach(el=>t.push({text:el.querySelector('.todo-text').textContent,done:el.classList.contains('done')}));
-  localStorage.setItem('daily_'+new Date().toISOString().slice(0,10),JSON.stringify(t));
+  localStorage.setItem('daily_'+todayKey(),JSON.stringify(t));
 }
 function loadDaily(){
-  const s=localStorage.getItem('daily_'+new Date().toISOString().slice(0,10));
+  const s=localStorage.getItem('daily_'+todayKey());
   if(!s)return updateRing();
   const t=JSON.parse(s),list=document.getElementById('todoList');list.innerHTML='';
   /* 优先项固定置顶：英语学习 / 缅甸语学习 / 初级会计 */
@@ -925,7 +927,7 @@ function loadDaily(){
 }
 
 // ===== 饮食记录（餐饮清单） =====
-const MEAL_KEY='meals_'+new Date().toISOString().slice(0,10);
+const MEAL_KEY='meals_'+todayKey();
 function addMeal(){
   const input=document.getElementById('newMeal');
   const text=input.value.trim();
@@ -1062,17 +1064,17 @@ function updateMyanmarRing(){
 function saveMyanmar(){
   const checks=[];
   document.querySelectorAll('#myCheckList .check-row').forEach(el=>checks.push(el.classList.contains('done')));
-  localStorage.setItem('myanmar_checks',JSON.stringify(checks));
+  localStorage.setItem('myanmar_checks_'+todayKey(),JSON.stringify(checks));
   alert('✅ 缅甸语学习进度已保存！');
 }
 function resetMyanmar(){
   if(!confirm('确定重置所有缅甸语学习进度吗？'))return;
-  localStorage.removeItem('myanmar_alpha');localStorage.removeItem('myanmar_checks');
+  localStorage.removeItem('myanmar_alpha');localStorage.removeItem('myanmar_checks_'+todayKey());
   location.reload();
 }
 (function initMyanmar(){
   renderAlpha();
-  const checks=JSON.parse(localStorage.getItem('myanmar_checks')||'[]');
+  const checks=JSON.parse(localStorage.getItem('myanmar_checks_'+todayKey())||'[]');
   document.querySelectorAll('#myCheckList .check-row').forEach((el,i)=>{if(checks[i])el.classList.add('done');});
   updateMyanmarRing();
 })();
@@ -1089,16 +1091,17 @@ function updateEnRing(){
 function saveEnglish(){
   const checks=[];
   document.querySelectorAll('#enCheckList .check-row').forEach(el=>checks.push(el.classList.contains('done')));
-  localStorage.setItem('en_'+new Date().toISOString().slice(0,10),JSON.stringify(checks));
+  localStorage.setItem('en_'+todayKey(),JSON.stringify(checks));
+  alert('✅ 英语学习进度已保存！');
 }
 function resetEnglish(){
   if(!confirm('确定重置今日英语打卡吗？'))return;
   document.querySelectorAll('#enCheckList .check-row').forEach(el=>el.classList.remove('done'));
-  localStorage.removeItem('en_'+new Date().toISOString().slice(0,10));
+  localStorage.removeItem('en_'+todayKey());
   updateEnRing();
 }
 (function initEnglish(){
-  const checks=JSON.parse(localStorage.getItem('en_'+new Date().toISOString().slice(0,10))||'[]');
+  const checks=JSON.parse(localStorage.getItem('en_'+todayKey())||'[]');
   document.querySelectorAll('#enCheckList .check-row').forEach((el,i)=>{if(checks[i])el.classList.add('done');});
   updateEnRing();
 })();
@@ -1115,16 +1118,16 @@ function updateAccRing(){
 function saveAccounting(){
   const checks=[];
   document.querySelectorAll('#accCheckList .check-row').forEach(el=>checks.push(el.classList.contains('done')));
-  localStorage.setItem('acc_'+new Date().toISOString().slice(0,10),JSON.stringify(checks));
+  localStorage.setItem('acc_'+todayKey(),JSON.stringify(checks));
 }
 function resetAccounting(){
   if(!confirm('确定重置今日会计备考打卡吗？'))return;
   document.querySelectorAll('#accCheckList .check-row').forEach(el=>el.classList.remove('done'));
-  localStorage.removeItem('acc_'+new Date().toISOString().slice(0,10));
+  localStorage.removeItem('acc_'+todayKey());
   updateAccRing();
 }
 (function initAccounting(){
-  const checks=JSON.parse(localStorage.getItem('acc_'+new Date().toISOString().slice(0,10))||'[]');
+  const checks=JSON.parse(localStorage.getItem('acc_'+todayKey())||'[]');
   document.querySelectorAll('#accCheckList .check-row').forEach((el,i)=>{if(checks[i])el.classList.add('done');});
   updateAccRing();
 })();
@@ -1229,16 +1232,16 @@ function updateMoneyRing(){
 function saveMoney(){
   const checks=[];
   document.querySelectorAll('#moneyCheckList .check-row').forEach(el=>checks.push(el.classList.contains('done')));
-  localStorage.setItem('money_'+new Date().toISOString().slice(0,10),JSON.stringify(checks));
+  localStorage.setItem('money_'+todayKey(),JSON.stringify(checks));
 }
 function resetMoney(){
   if(!confirm('确定重置今日理财打卡吗？'))return;
   document.querySelectorAll('#moneyCheckList .check-row').forEach(el=>el.classList.remove('done'));
-  localStorage.removeItem('money_'+new Date().toISOString().slice(0,10));
+  localStorage.removeItem('money_'+todayKey());
   updateMoneyRing();
 }
 (function initMoney(){
-  const checks=JSON.parse(localStorage.getItem('money_'+new Date().toISOString().slice(0,10))||'[]');
+  const checks=JSON.parse(localStorage.getItem('money_'+todayKey())||'[]');
   document.querySelectorAll('#moneyCheckList .check-row').forEach((el,i)=>{if(checks[i])el.classList.add('done');});
   updateMoneyRing();
 })();
