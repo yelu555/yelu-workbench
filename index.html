@@ -510,26 +510,14 @@
         </div>
       </div>
       <div class="card">
-        <div class="todo-header"><span class="icon" style="background:var(--teal)">💬</span>日常会话句型</div>
-        <div class="conv-row"><div class="conv-my">မင်္ဂလာပါ</div><div class="conv-py">min ga la ba</div><div class="conv-cn">你好</div></div>
-        <div class="conv-row"><div class="conv-my">ကျေးဇူးတင်ပါတယ်</div><div class="conv-py">kyaay zuu tin ba de</div><div class="conv-cn">谢谢</div></div>
-        <div class="conv-row"><div class="conv-my">ဟုတ်ကဲ့</div><div class="conv-py">ho ke</div><div class="conv-cn">好的 / 是</div></div>
-        <div class="conv-row"><div class="conv-my">မဟုတ်ဘူး</div><div class="conv-py">ma ho bu</div><div class="conv-cn">不是</div></div>
-        <div class="conv-row"><div class="conv-my">နာမည်ဘယ်လိုခေါ်လဲ</div><div class="conv-py">na meh be lo gau leh</div><div class="conv-cn">你叫什么名字？</div></div>
-        <div class="conv-row"><div class="conv-my">ကျွန်မနာမည်က…</div><div class="conv-py">kyaun ma na meh ka…</div><div class="conv-cn">我的名字是…</div></div>
+        <div class="todo-header"><span class="icon" style="background:var(--teal)">💬</span>日常会话句型（每日更新）</div>
+        <div id="myConvList"></div>
       </div>
       <div class="card">
-        <div class="todo-header"><span class="icon" style="background:var(--teal)">📚</span>本周高频词汇</div>
+        <div class="todo-header"><span class="icon" style="background:var(--teal)">📚</span>本周高频词汇（每日更新 8个）</div>
         <table>
           <tr><th>缅语</th><th>拼音</th><th>中文</th></tr>
-          <tr><td><b>ကျွန်တော်</b></td><td>kyaun taw</td><td>我（男）</td></tr>
-          <tr><td><b>ကျွန်မ</b></td><td>kyaun ma</td><td>我（女）</td></tr>
-          <tr><td><b>သူ</b></td><td>thu</td><td>他/她</td></tr>
-          <tr><td><b>ရေ</b></td><td>yay</td><td>水</td></tr>
-          <tr><td><b>ထမင်း</b></td><td>hta min</td><td>米饭</td></tr>
-          <tr><td><b>အစား</b></td><td>a sa</td><td>食物</td></tr>
-          <tr><td><b>ဘယ်လို</b></td><td>be lo</td><td>怎么</td></tr>
-          <tr><td><b>ဘယ်မှာ</b></td><td>be hma</td><td>在哪里</td></tr>
+          <tbody id="myVocabBody"></tbody>
         </table>
       </div>
       <div class="card">
@@ -575,29 +563,16 @@
       </div>
 
       <div class="card">
-        <div class="todo-header"><span class="icon" style="background:var(--blue)">📚</span>今日单词（日常基础 10个）</div>
+        <div class="todo-header"><span class="icon" style="background:var(--blue)">📚</span>今日单词（每日更新 10个）</div>
         <table>
           <tr><th style="width:7%;">#</th><th>单词</th><th>读音</th><th>词性</th><th>释义</th></tr>
-          <tr><td>1</td><td><b>hello</b></td><td class="ph">/həˈloʊ/</td><td>int.</td><td>你好</td></tr>
-          <tr><td>2</td><td><b>water</b></td><td class="ph">/ˈwɔːtər/</td><td>n.</td><td>水</td></tr>
-          <tr><td>3</td><td><b>eat</b></td><td class="ph">/iːt/</td><td>v.</td><td>吃</td></tr>
-          <tr><td>4</td><td><b>home</b></td><td class="ph">/hoʊm/</td><td>n.</td><td>家</td></tr>
-          <tr><td>5</td><td><b>time</b></td><td class="ph">/taɪm/</td><td>n.</td><td>时间</td></tr>
-          <tr><td>6</td><td><b>friend</b></td><td class="ph">/frend/</td><td>n.</td><td>朋友</td></tr>
-          <tr><td>7</td><td><b>good</b></td><td class="ph">/ɡʊd/</td><td>adj.</td><td>好的</td></tr>
-          <tr><td>8</td><td><b>help</b></td><td class="ph">/help/</td><td>v.</td><td>帮助</td></tr>
-          <tr><td>9</td><td><b>go</b></td><td class="ph">/ɡoʊ/</td><td>v.</td><td>去；走</td></tr>
-          <tr><td>10</td><td><b>work</b></td><td class="ph">/wɜːrk/</td><td>n./v.</td><td>工作</td></tr>
+          <tbody id="enWordBody"></tbody>
         </table>
       </div>
 
       <div class="card">
-        <div class="todo-header"><span class="icon" style="background:var(--blue)">💬</span>今日句型（美剧台词 5句）</div>
-        <div class="quote-row"><div class="quote-en">"Friends don't lie."</div><div class="quote-cn">—— 朋友之间不说谎。《怪奇物语》Stranger Things</div></div>
-        <div class="quote-row"><div class="quote-en">"Winter is coming."</div><div class="quote-cn">—— 凛冬将至。《权力的游戏》Game of Thrones</div></div>
-        <div class="quote-row"><div class="quote-en">"I am the one who knocks."</div><div class="quote-cn">—— 敲门的人，是我。《绝命毒师》Breaking Bad</div></div>
-        <div class="quote-row"><div class="quote-en">"We were on a break!"</div><div class="quote-cn">—— 我们当时分手了！《老友记》Friends</div></div>
-        <div class="quote-row"><div class="quote-en">"Bazinga!"</div><div class="quote-cn">—— 逗你玩！（标志性恶作剧用语）《生活大爆炸》The Big Bang Theory</div></div>
+        <div class="todo-header"><span class="icon" style="background:var(--blue)">💬</span>今日句型（美剧台词 · 每日更新 5句）</div>
+        <div id="enQuoteList"></div>
       </div>
 
       <div class="card">
@@ -1246,8 +1221,79 @@ function resetMoney(){
   updateMoneyRing();
 })();
 
+// ===== 每日轮换内容（英语单词/句型、缅甸语会话/词汇）=====
+function dayNum(){const d=new Date();const start=new Date(d.getFullYear(),0,0);return Math.floor((d-start)/86400000);}
+function dailySlice(pool,n,seed){
+  const len=pool.length;if(len<=n)return pool.slice();
+  const s=((seed%len)+len)%len,out=[];
+  for(let i=0;i<n;i++)out.push(pool[(s+i)%len]);
+  return out;
+}
+const EN_WORDS=[
+ ['hello','/həˈloʊ/','int.','你好'],['water','/ˈwɔːtər/','n.','水'],['eat','/iːt/','v.','吃'],
+ ['home','/hoʊm/','n.','家'],['time','/taɪm/','n.','时间'],['friend','/frend/','n.','朋友'],
+ ['good','/ɡʊd/','adj.','好的'],['help','/help/','v.','帮助'],['go','/ɡoʊ/','v.','去；走'],
+ ['work','/wɜːrk/','n./v.','工作'],['food','/fuːd/','n.','食物'],['book','/bʊk/','n.','书'],
+ ['sleep','/sliːp/','v.','睡觉'],['happy','/ˈhæpi/','adj.','开心的'],['cat','/kæt/','n.','猫'],
+ ['dog','/dɔːɡ/','n.','狗'],['love','/lʌv/','v.','爱'],['read','/riːd/','v.','阅读'],
+ ['write','/raɪt/','v.','写'],['talk','/tɔːk/','v.','说话'],['walk','/wɔːk/','v.','走路'],
+ ['run','/rʌn/','v.','跑'],['drink','/drɪŋk/','v.','喝'],['mother','/ˈmʌðər/','n.','妈妈'],
+ ['father','/ˈfɑːðər/','n.','爸爸'],['child','/tʃaɪld/','n.','孩子'],['school','/skuːl/','n.','学校'],
+ ['city','/ˈsɪti/','n.','城市'],['sun','/sʌn/','n.','太阳'],['moon','/muːn/','n.','月亮']
+];
+const EN_QUOTES=[
+ ['Friends don\'t lie.','朋友之间不说谎。《怪奇物语》Stranger Things'],
+ ['Winter is coming.','凛冬将至。《权力的游戏》Game of Thrones'],
+ ['I am the one who knocks.','敲门的人，是我。《绝命毒师》Breaking Bad'],
+ ['We were on a break!','我们当时分手了！《老友记》Friends'],
+ ['Bazinga!','逗你玩！《生活大爆炸》The Big Bang Theory'],
+ ['I\'ll be there for you.','我会在你身边。《老友记》Friends'],
+ ['That\'s what she said.','就是这么回事（经典梗）。《办公室》The Office'],
+ ['Clear eyes, full hearts, can\'t lose.','目光坚定，全心全意，永不言败。《胜利之光》Friday Night Lights'],
+ ['I am the danger.','危险的人是我。《绝命毒师》Breaking Bad'],
+ ['Not all heroes wear capes.','不是所有英雄都披斗篷。《富家穷路》Schitt\'s Creek'],
+ ['It\'s going to be legend—wait for it—dary!','这将会成为传奇！《老爸说…》How I Met Your Mother'],
+ ['D\'oh!','噢！（经典懊恼）。《辛普森一家》The Simpsons'],
+ ['Hodor.','霍多。《权力的游戏》Game of Thrones'],
+ ['You know nothing, Jon Snow.','你什么都不懂，琼恩·雪诺。《权力的游戏》'],
+ ['I drink and I know things.','我喝酒，且懂很多事。《权力的游戏》']
+];
+const MY_CONV=[
+ ['မင်္ဂလာပါ','min ga la ba','你好'],['ကျေးဇူးတင်ပါတယ်','kyaay zuu tin ba de','谢谢'],
+ ['ဟုတ်ကဲ့','ho ke','好的 / 是'],['မဟုတ်ဘူး','ma ho bu','不是'],
+ ['နာမည်ဘယ်လိုခေါ်လဲ','na meh be lo gau leh','你叫什么名字？'],['ကျွန်မနာမည်က…','kyaun ma na meh ka…','我的名字是…'],
+ ['နေကောင်းလား','nay kaung laa','你好吗？（身体好吗）'],['ကျွန်တော်နေကောင်းပါတယ်','kyaun taw nay kaung ba de','我很好'],
+ ['ဘယ်နိုင်ငံကလဲ','be naing ngan ka leh','你来自哪个国家？'],['မြန်မာနိုင်ငံကပါ','myan ma naing ngan ka pa','来自缅甸'],
+ ['ဘယ်မှာသွားလဲ','be hma thwa leh','你要去哪儿？'],['စာသင်ကျောင်းကို သွားပါတယ်','sa thin kyaung ko thwa ba de','我去学校']
+];
+const MY_VOCAB=[
+ ['ကျွန်တော်','kyaun taw','我（男）'],['ကျွန်မ','kyaun ma','我（女）'],['သူ','thu','他/她'],
+ ['ရေ','yay','水'],['ထမင်း','hta min','米饭'],['အစား','a sa','食物'],
+ ['ဘယ်လို','be lo','怎么'],['ဘယ်မှာ','be hma','在哪里'],['အမေ','a meh','妈妈'],
+ ['အဖေ','a phay','爸爸'],['ညီ','nyi','弟弟'],['မောင်','maung','哥哥'],
+ ['ချစ်','chit','爱'],['အိပ်','eik','睡觉'],['စာ','sa','书；字'],
+ ['အိမ်','ein','家'],['နေ','nay','太阳；坐'],['ငါ','nga','我（亲密）']
+];
+function renderEnWords(){
+  document.getElementById('enWordBody').innerHTML=dailySlice(EN_WORDS,10,dayNum()).map((w,i)=>
+    '<tr><td>'+(i+1)+'</td><td><b>'+w[0]+'</b></td><td class="ph">'+w[1]+'</td><td>'+w[2]+'</td><td>'+w[3]+'</td></tr>').join('');
+}
+function renderEnQuotes(){
+  document.getElementById('enQuoteList').innerHTML=dailySlice(EN_QUOTES,5,dayNum()+1).map(q=>
+    '<div class="quote-row"><div class="quote-en">"'+q[0]+'"</div><div class="quote-cn">—— '+q[1]+'</div></div>').join('');
+}
+function renderMyConv(){
+  document.getElementById('myConvList').innerHTML=dailySlice(MY_CONV,5,dayNum()+2).map(c=>
+    '<div class="conv-row"><div class="conv-my">'+c[0]+'</div><div class="conv-py">'+c[1]+'</div><div class="conv-cn">'+c[2]+'</div></div>').join('');
+}
+function renderMyVocab(){
+  document.getElementById('myVocabBody').innerHTML=dailySlice(MY_VOCAB,8,dayNum()+3).map(v=>
+    '<tr><td><b>'+v[0]+'</b></td><td>'+v[1]+'</td><td>'+v[2]+'</td></tr>').join('');
+}
+
 // ===== 初始化 =====
 loadDaily();
+renderEnWords();renderEnQuotes();renderMyConv();renderMyVocab();
 </script>
 </body>
 </html>
